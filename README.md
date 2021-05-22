@@ -419,7 +419,7 @@ wait -text "code" -timeout 30000 -theninput '$code'
   wait -editText "captcha" -timeout 10000 -pos 0 -thenInput 'readcaptcha -key "0407590008409e6e69f340089f6a40355" -image "getVar -var image"'
 ```
 
-#Các lệnh yêu cầu root
+## Các lệnh yêu cầu root
 - Backup data của 1 app theo package
 ```shell script
 //backup vào thư mục /sdcard/AutoTouchPro/backup/com.facebook.katana/test.bk
