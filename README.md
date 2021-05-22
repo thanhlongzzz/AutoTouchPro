@@ -177,6 +177,7 @@ endSequence
 - `stop` hoặc `stopAll` dừng tất cả các lệnh đang chạy
 
 - `var` Lưu giá trị vào 1 biến trong lúc chạy
+
 	ví dụ 
 ```shell script
     var -name "code" -value "100"
@@ -188,12 +189,14 @@ chụp ảnh màn hình theo tọa độ rồi lưu ảnh vào biến
 
 
 - `getvar` Lấy giá trị biến trong lúc chạy
+
 	ví dụ 
 ```shell script
 wait -text 'What are you looking for?' -exactly true -timeout 10000 -thenInput 'getVar  -var "code"' -slowinput true
 ```
 
 - `random` sinh ngẫu nhiên 1 số từ x đến y
+
 	param `-from` x `-to` y
 	ví dụ
 ```shell script
@@ -201,6 +204,7 @@ random -from 1000 -to 4000
 ```
 
 - `click` click vào 1 tọa độ trên màn hình hoặc `clickcenter` để click vào giữa màn hình
+
 	param `-x` , `-y`;   `-plusX "-150" -plusY "-150"` tọa độ cộng thêm so với x,y
 	ví dụ
 ```shell script
@@ -215,6 +219,7 @@ click -x "random -from 100 -to 400" -y 100
 
 
 - `openapp` mở 1 app theo tên package
+
 	param `-p` : tên package
 	ví dụ
 ```shell script
@@ -222,6 +227,7 @@ openapp -p "com.amazon.mShop.android.shopping"
 ```
 
 - `opendetailapp` mở cài đặt chi tiết app theo tên package
+
 	param `-p` : tên package
 	ví dụ
 ```shell script
@@ -230,6 +236,7 @@ opendetailapp -p "com.amazon.mShop.android.shopping"
 
 
 - `sleep` delay trong khoảng thời gian millisecond, **chạy trong khối  `sequent` và `endSequent` hoặc `loop` mới có tác dụng**
+
 	param: `-t` : thời gian millisecond
 	ví dụ
 ```shell script
@@ -240,6 +247,7 @@ sleep -t "random -from 1000 -to 4000"
 ```
 
 - `swipe` cử chỉ vuốt trên màn hình
+
 	param `-orient` hướng vuốt là 1 trong các giá trị  `up` `down` `left` `right` ---- hoặc param `-startx 100 -starty 100 -endx 500 -endy 500` từ tọa độ (x1,y1) tới (x2,y2)
 	param `-t` thời gian millisecond swipe: thời gian từ nhỏ nhất từ `100` , thời gian càng bé thì tốc độ vuốt càng nhanh 
 	ví dụ
@@ -253,6 +261,7 @@ swipe -startx 100 -starty 100 -endx 500 -endy 500 -t 1000
 # _____________________________CÁC LỆNH NÂNG CAO_______________________________
 
 - `loop` và `endLoop` là 1 khối lệnh lặp
+
 	param `-t` : thời gian lặp hoặc `-i` số lần lặp
 	ví dụ
 ```shell script
@@ -271,6 +280,7 @@ endLoop
 ```
 
 - `if` hoặc `wait` Lệnh chờ 1 điều kiện xuất hiện trên màn hình như chờ 1 edittext sau đó làm gì, hoặc kiểm tra biến sau đó làm hành động
+
 	param: `-text "Facebook"` Chờ 1 text xuất hiện trên màn hình, `-edittext "Tên"` check text ô nhập liệu, `-id "id_view"` trong trường hợp text không có, cần debug để tìm ra id của view đó 
 	param: `-exactly true` check text là đúng thay vì contain text
 	param: `-timeout` chờ trong khoảng thời gian,
@@ -311,6 +321,7 @@ endLoop
 ```
 
 - `getotp` dùng để lấy OTP từ mã 2FA
+
 	param `-key` : mã 2FA
 	ví dụ
 ```shell script
@@ -318,6 +329,7 @@ wait -text "login code" -timeout 300000 -theninput "getOTP -key P6NTOT7IVUCVQEAK
 ```
 
 - `openfacebookpost` hỗ trợ mở 1 post riêng của facebook
+
 	ví dụ
 ```shell script
 OpenFacebookPost -p com.facebook.katana -id 949449446412651
@@ -326,6 +338,7 @@ OpenFacebookPost -p com.facebook.katana -id 949449446412651
 
 
 - `opendeeplink` hỗ trợ mở 1 deeplink theo app
+
 	ví dụ
 ```shell script
 //mở app tiktok với link video, search deeplink trên google để hiểu hơn
@@ -343,6 +356,7 @@ OpenDeepLink -p "com.ss.android.ugc.trill" -url "https://vt.tiktok.com/ZSXCh2Hb"
 
 
 - `replace`
+
 	param `-replace` là regex hoặc text bình thường
 	ví dụ 
 ```shell script
@@ -352,6 +366,7 @@ replace -text 'getVar -name "phone"' -replace "^84" -to "0" -var "phone"
 
 
 - `get` lấy giá trị 1 trường của json từ 1 link
+
 	param `-url`, `-field`, `-regex` để lọc text trong field , `-regexpos` vị trí khớp regex, `startAt` lấy kết quả từ vị trí sau khi lọc regex, `endAt` vị trí cuối cùng lấy vào kết quả
 	ví dụ
 ```json
@@ -380,6 +395,7 @@ wait -text "write to comment" -timeout 20000 -theninput "get -url https://api.mo
 
 
 - `reademail` đọc giá trị trong mail gửi về với regex tương tự
+
 	các param regex giống lệnh `get` bên trên
 	ví dụ
 ```shell script
@@ -396,6 +412,7 @@ wait -text "code" -timeout 30000 -theninput '$code'
 
 
 - `readcaptcha` giải captche từ trang https://api.anti-captcha.com
+
 	ví dụ
 ```shell script
   var -name "image" -value 'getImage -startX 100 -startY 150 -endX 500 -endY 550';
