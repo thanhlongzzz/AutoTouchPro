@@ -28,7 +28,7 @@ adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunSer
 
 ```
 
-*________________CÁCH SOẠN SCRIPT________________*
+# *________________CÁCH SOẠN SCRIPT__________________
 
 # Cấu trúc script gồm 2 phần
 1. Khai báo
@@ -38,7 +38,10 @@ adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunSer
 2. Khai báo biến, các biến bắt đầu bằng `$``name` = `giá trị`
 3. Các biến sẽ được nạp vào bộ nhớ để sử dụng cho body script
 4. Các biến có thể là lệnh rút gọn cho lệnh dài hoặc biến
-5. Chú ý các dấu nháy `""`, dấu `''`, và `{}` nếu trong 1 lệnh có nhiều param lồng nhau, độ ưu tiên theo thứ tự : nếu không theo độ ưu tiên này thì script sẽ lỗi, ví dụ đúng `if -getVar "donevar" -equal null -else {wait -text 'random -text "Done,Cancel"' -exactly true -timeout "random -from 10000 -to 30000" -thenClick true}`
+5. Chú ý các dấu nháy `""`, dấu `''`, và `{}` nếu trong 1 lệnh có nhiều param lồng nhau, độ ưu tiên theo thứ tự `{}` ở ngoài cùng -> `''` -> `""` : nếu không theo độ ưu tiên này thì script sẽ lỗi, ví dụ đúng
+```shell script
+ if -getVar "donevar" -equal null -else {wait -text 'random -text "Done,Cancel"' -exactly true -timeout "random -from 10000 -to 30000" -thenClick true}
+```
 6. Ví dụ
 ```shell script
 define
@@ -91,8 +94,8 @@ define
 endDefine
 ```
 ## Cấu trúc lệnh Body
-1.Nếu muốn Chạy đa luồng (Tất cả các lệnh cùng chạy 1 lúc)
-- 2 vòng lặp chạy cùng lúc trong vòng 500s , cứ xuất hiện `Ok` là click và cứ xuất hiện `NONE OF THE ABOVE` là bấm, hết 500s thì dừng
+1. Nếu muốn Chạy đa luồng (Tất cả các lệnh cùng chạy 1 lúc), không được để các lệnh/khối lệnh trong khối `sequent` và `endSequent`
+- Hai vòng lặp chạy cùng lúc trong vòng 500s , cứ xuất hiện `Ok` là click và cứ xuất hiện `NONE OF THE ABOVE` là bấm, hết 500s thì dừng
 ```shell script
 loop -timeout 500000
 	wait -text "Ok" -exactly true -timeout 300000 -thenclick true
@@ -174,7 +177,7 @@ endSequence
 - `stop` hoặc `stopAll` dừng tất cả các lệnh đang chạy
 
 - `var` Lưu giá trị vào 1 biến trong lúc chạy
- ví dụ 
+ví dụ 
 ```shell script
     var -name "code" -value "100"
     var -name "code2" -value "random -from 11 -to 100"
@@ -185,21 +188,21 @@ chụp ảnh màn hình theo tọa độ rồi lưu ảnh vào biến
 
 
 - `getvar` Lấy giá trị biến trong lúc chạy
- ví dụ 
+ví dụ 
 ```shell script
 wait -text 'What are you looking for?' -exactly true -timeout 10000 -thenInput 'getVar  -var "code"' -slowinput true
 ```
 
 - `random` sinh ngẫu nhiên 1 số từ x đến y
- param `-from` x `-to` y
- ví dụ
+param `-from` x `-to` y
+ví dụ
 ```shell script
 random -from 1000 -to 4000
 ```
 
 - `click` click vào 1 tọa độ trên màn hình hoặc `clickcenter` để click vào giữa màn hình
- param `-x` , `-y`;   `-plusX "-150" -plusY "-150"` tọa độ cộng thêm so với x,y
- ví dụ
+param `-x` , `-y`;   `-plusX "-150" -plusY "-150"` tọa độ cộng thêm so với x,y
+ví dụ
 ```shell script
 click -x 500 -y 100
 //
@@ -212,23 +215,23 @@ click -x "random -from 100 -to 400" -y 100
 
 
 - `openapp` mở 1 app theo tên package
- param `-p` : tên package
- ví dụ
+param `-p` : tên package
+ví dụ
 ```shell script
 openapp -p "com.amazon.mShop.android.shopping"
 ```
 
 - `opendetailapp` mở cài đặt chi tiết app theo tên package
- param `-p` : tên package
- ví dụ
+param `-p` : tên package
+ví dụ
 ```shell script
 opendetailapp -p "com.amazon.mShop.android.shopping"
 ```
 
 
 - `sleep` delay trong khoảng thời gian millisecond, **chạy trong khối  `sequent` và `endSequent` hoặc `loop` mới có tác dụng**
- param: `-t` : thời gian millisecond
- ví dụ
+param: `-t` : thời gian millisecond
+ví dụ
 ```shell script
 //sleep 1 giây
 sleep -t 1000
@@ -237,9 +240,9 @@ sleep -t "random -from 1000 -to 4000"
 ```
 
 - `swipe` cử chỉ vuốt trên màn hình
- param `-orient` hướng vuốt là 1 trong các giá trị  `up` `down` `left` `right` ---- hoặc param `-startx 100 -starty 100 -endx 500 -endy 500` từ tọa độ (x1,y1) tới (x2,y2)
- param `-t` thời gian millisecond swipe: thời gian từ nhỏ nhất từ `100` , thời gian càng bé thì tốc độ vuốt càng nhanh 
- ví dụ
+param `-orient` hướng vuốt là 1 trong các giá trị  `up` `down` `left` `right` ---- hoặc param `-startx 100 -starty 100 -endx 500 -endy 500` từ tọa độ (x1,y1) tới (x2,y2)
+param `-t` thời gian millisecond swipe: thời gian từ nhỏ nhất từ `100` , thời gian càng bé thì tốc độ vuốt càng nhanh 
+ví dụ
 ```shell script
 swipe -orient up -t 200
 //hoặc
@@ -250,8 +253,8 @@ swipe -startx 100 -starty 100 -endx 500 -endy 500 -t 1000
 # _____________________________CÁC LỆNH NÂNG CAO_______________________________
 
 - `loop` và `endLoop` là 1 khối lệnh lặp
- param `-t` : thời gian lặp hoặc `-i` số lần lặp
- ví dụ
+param `-t` : thời gian lặp hoặc `-i` số lần lặp
+ví dụ
 ```shell script
 //trong vòng 4 giây chạy 2 lệnh tuần tự sleep 4giay rồi back
 loop -t 4000
@@ -268,18 +271,18 @@ endLoop
 ```
 
 - `if` hoặc `wait` Lệnh chờ 1 điều kiện xuất hiện trên màn hình như chờ 1 edittext sau đó làm gì, hoặc kiểm tra biến sau đó làm hành động
-  param: `-text "Facebook"` Chờ 1 text xuất hiện trên màn hình, `-edittext "Tên"` check text ô nhập liệu, `-id "id_view"` trong trường hợp text không có, cần debug để tìm ra id của view đó 
-  param: `-exactly true` check text là đúng thay vì contain text
-  param: `-timeout` chờ trong khoảng thời gian,
-  param: `-then` Chạy lệnh nào đó
-  param: `-thenInput "text"` Nhập text vào ô đã tìm thấy
-  param: `-slowinput true` Nhập text vào ô đã tìm thấy theo kiểu chậm từng chữ một
-  param: `-thenClick true` sau đó click vào ô đó
-  param: `-thenDoubleClick true` sau đó click vào ô đó
-  param: `-thenLongClick true` sau đó long click vào ô đó
-  param: `-thenScrollto true` sau đó cuộn tới ô đó
-  param: `-else` nếu không thì chạy lệnh nào đó
-  param: `-pos 0` trong trường hợp trên màn hình có nhiều text đó thì lấy vị trí 0
+param: `-text "Facebook"` Chờ 1 text xuất hiện trên màn hình, `-edittext "Tên"` check text ô nhập liệu, `-id "id_view"` trong trường hợp text không có, cần debug để tìm ra id của view đó 
+param: `-exactly true` check text là đúng thay vì contain text
+param: `-timeout` chờ trong khoảng thời gian,
+param: `-then` Chạy lệnh nào đó
+param: `-thenInput "text"` Nhập text vào ô đã tìm thấy
+param: `-slowinput true` Nhập text vào ô đã tìm thấy theo kiểu chậm từng chữ một
+param: `-thenClick true` sau đó click vào ô đó
+param: `-thenDoubleClick true` sau đó click vào ô đó
+param: `-thenLongClick true` sau đó long click vào ô đó
+param: `-thenScrollto true` sau đó cuộn tới ô đó
+param: `-else` nếu không thì chạy lệnh nào đó
+param: `-pos 0` trong trường hợp trên màn hình có nhiều text đó thì lấy vị trí 0
 
 ví dụ *đọc thêm các scrip mẫu bên thư mục trên để hiểu thêm*
 ```shell script
@@ -308,14 +311,14 @@ ví dụ *đọc thêm các scrip mẫu bên thư mục trên để hiểu thêm
 ```
 
 - `getotp` dùng để lấy OTP từ mã 2FA
- param `-key` : mã 2FA
- ví dụ
+param `-key` : mã 2FA
+ví dụ
 ```shell script
 wait -text "login code" -timeout 300000 -theninput "getOTP -key P6NTOT7IVUCVQEAKGA2CWWO3SD5HXJ45"
 ```
 
 - `openfacebookpost` hỗ trợ mở 1 post riêng của facebook
- ví dụ
+ví dụ
 ```shell script
 OpenFacebookPost -p com.facebook.katana -id 949449446412651
 ```
@@ -323,7 +326,7 @@ OpenFacebookPost -p com.facebook.katana -id 949449446412651
 
 
 - `opendeeplink` hỗ trợ mở 1 deeplink theo app
- ví dụ
+ví dụ
 ```shell script
 //mở app tiktok với link video, search deeplink trên google để hiểu hơn
 OpenDeepLink -p "com.ss.android.ugc.trill" -url "https://vt.tiktok.com/ZSXCh2Hb"
@@ -331,7 +334,7 @@ OpenDeepLink -p "com.ss.android.ugc.trill" -url "https://vt.tiktok.com/ZSXCh2Hb"
 
 - `changeProxy` Đổi proxy trừ app mình , *lưu ý proxy không có authent*, còn proxy có authen như sock5,... thì phức tạp hơn, cần root máy và cài thêm 1 số thứ
 - `stopProxy` Đổi proxy trừ app mình
- ví dụ 
+ví dụ 
 ```shell script
    changeProxy -ip "123.235.123.1:8080"
    stopProxy
@@ -340,8 +343,8 @@ OpenDeepLink -p "com.ss.android.ugc.trill" -url "https://vt.tiktok.com/ZSXCh2Hb"
 
 
 - `replace`
- param `-replace` là regex hoặc text bình thường
- ví dụ 
+param `-replace` là regex hoặc text bình thường
+ví dụ 
 ```shell script
 //replace giá trị trong biến phone và lưu lại vào biến phone
 replace -text 'getVar -name "phone"' -replace "^84" -to "0" -var "phone"
@@ -349,8 +352,8 @@ replace -text 'getVar -name "phone"' -replace "^84" -to "0" -var "phone"
 
 
 - `get` lấy giá trị 1 trường của json từ 1 link
- param `-url`, `-field`, `-regex` để lọc text trong field , `-regexpos` vị trí khớp regex, `startAt` lấy kết quả từ vị trí sau khi lọc regex, `endAt` vị trí cuối cùng lấy vào kết quả
- ví dụ
+param `-url`, `-field`, `-regex` để lọc text trong field , `-regexpos` vị trí khớp regex, `startAt` lấy kết quả từ vị trí sau khi lọc regex, `endAt` vị trí cuối cùng lấy vào kết quả
+ví dụ
 ```json
 {"menu": {
     "header": "SVG Viewer",
@@ -377,8 +380,8 @@ wait -text "write to comment" -timeout 20000 -theninput "get -url https://api.mo
 
 
 - `reademail` đọc giá trị trong mail gửi về với regex tương tự
- các param regex giống lệnh `get` bên trên
- ví dụ
+các param regex giống lệnh `get` bên trên
+ví dụ
 ```shell script
 define
     //đọc 15 mail mới nhất, tìm tất cả số có 5 chữ số và lấy vị trí số thứ 1
@@ -393,7 +396,7 @@ wait -text "code" -timeout 30000 -theninput '$code'
 
 
 - `readcaptcha` giải captche từ trang https://api.anti-captcha.com
- ví dụ
+ví dụ
 ```shell script
   var -name "image" -value 'getImage -startX 100 -startY 150 -endX 500 -endY 550';
   wait -editText "captcha" -timeout 10000 -pos 0 -thenInput 'readcaptcha -key "0407590008409e6e69f340089f6a40355" -image "getVar -var image"'
