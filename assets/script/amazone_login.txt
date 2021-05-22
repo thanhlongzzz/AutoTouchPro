@@ -1,0 +1,87 @@
+//Amazon auto
+home
+define
+	$pk = com.amazon.mShop.android.shopping
+	
+	$sleep = sleep -t "random -from 1000 -to 4000"
+	
+	//---------------login-------------
+	$user = love1608815756838@mailshu.com
+	$pass = 123456
+	
+	//----nếu check point-----
+	$email = pdhainam@gmail.com
+	$emailPass = Nolove1@123
+
+	$enter = click -x 980 -y 1850
+endDefine
+
+loop -timeout 500000
+	wait -text "Ok" -exactly true -timeout 300000 -thenclick true
+endloop
+
+loop -timeout 500000
+	if -text "NONE OF THE ABOVE" -thenClick true -timeout 300000
+endloop
+
+sequence
+	log -text "----------TASK-START---------"
+	//----------------mở app và login-----------
+	openapp -p "$pk"
+	sleep -t 5000
+	setInfo -p "$pk" -field "current_status" -value "opening app"
+	wait -text 'Done' -exactly true -timeout 30000 -thenInput '' -thenClick true -then '' -else ''
+	$sleep
+	wait -text 'Already a customer? Sign in' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	$sleep
+	
+	if -text 'Sign in for the best experience' -exactly true -timeout 10000 -then 'wait -text "Sign in" -exactly true -timeout 10000 -thenClick true'
+	$sleep
+	$sleep
+	$sleep
+	wait -text 'Email (phone for mobile accounts)' -timeout 10000 -thenInput '$user' -slowinput true
+	$sleep
+	$sleep
+	
+	wait -text 'Continue' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	$sleep
+	$sleep
+	$sleep
+	wait -editText 'Amazon password' -timeout 10000 -thenInput '$pass' -slowinput true
+	$sleep
+	$sleep
+	$sleep
+	wait -buttonText 'Sign-In' -exactly true -timeout 10000 -thenClick true -then 'setInfo -p "$pk" -field "current_status" -value "Logged"'
+	$sleep
+	$sleep
+	$sleep
+	
+	if -buttonText 'Sign-In' -exactly true -timeout 10000 -else 'setInfo -p "$pk" -field "loged_user" -value "$user"'
+	if -buttonText 'Sign-In' -exactly true -timeout 10000 -else 'setInfo -p "$pk" -field "loged_password" -value "$pass"'
+	
+	if -text 'To continue, approve the notification sent to' -timeout 10000 -then 'setInfo -p "$pk" -field "current_status" -value "Check point"'
+	
+	home
+	
+	//if -text 'To continue, approve the notification sent to' -timeout 10000 -then 'var -name "checkpoint" -value "true"'
+	
+	//if -getVar "checkpoint" -equal "true" -then 'readMail -host imappro.zoho.com -user $email -pass $emailPass -contain "$user" -limit 15 -regex 'https:\/\/www\.amazon\.com\/.*' -regexPos 3 -var "link_mail"'
+	
+	//if -getVar "checkpoint" -equal "true" -then 'sleep -t 25000'
+	
+	//if -getVar "checkpoint" -equal "true" -then 'readMail -host imappro.zoho.com -user $email -pass $emailPass -contain "$user" -limit 15 -regex 'https:\/\/www\.amazon\.com\/.*' -regexPos 3 -var "link_mail"'
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then 'openapp -p com.android.chrome'
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then 'wait -text 'More options' -exactly true -timeout 10000 -thenClick true'
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then 'wait -text 'New incognito tab' -exactly true -timeout 10000 -thenClick true'
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then {wait -editText '' -pos 0 -thenClick true}
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then {wait -editText '' -pos 0 -thenInput 'getVar -name "link_mail"'}
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	//if -getVar "checkpoint" -equal "true" -then '$enter'
+	//if -getVar "checkpoint" -equal "true" -then '$sleep'
+	log -text "----------TASK-DONE---------"
+endSequence

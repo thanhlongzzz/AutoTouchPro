@@ -1,0 +1,99 @@
+
+define
+ $next = "wait -text "next" -exactly true -timeout 300000 -thenclick true"
+ $sleep = "sleep -t 1500"
+endDefine
+
+//wait -text "not now" -exactly true -timeout 300000 -thenclick true
+
+//loop -timeout 400000
+//	wait -text "ok" -exactly true -timeout 300000 -thenclick true
+//	sleep -t 500
+//endloop
+
+//loop -timeout 400000
+//	wait -text "yes" -exactly true -timeout 300000 -thenclick true
+//	sleep -t 500
+//endloop
+
+loop -timeout 400000
+	wait -text "Allow" -exactly true -timeout 300000 -thenclick true
+	sleep -t 500
+endloop
+
+sequent
+
+	//cleardata of facebook
+	opendetailapp -p "com.facebook.katanb"
+	sleep -t 1500
+	wait -text "storage" -exactly true  -timeout 300000 -thenclick true
+	sleep -t 1500
+	wait -text "clear storage" -timeout 300000 -thenclick true
+	sleep -t 1500
+	home
+	sleep -t 1000
+
+	//reg nick
+	openapp -p "com.facebook.katanb"
+	sleep -t 15000
+
+	//wait -text "không mục nào" -timeout 20000 -thenclick true
+	//sleep -t 500
+
+	wait -text "create new facebook account" -timeout 300000 -thenclick true
+	$sleep
+
+	$next
+	$sleep
+
+	wait -text "First Name" -timeout 300000 -theninput "Cong Nguyen"
+	$sleep
+
+	wait -text "Last Name" -timeout 300000 -theninput "Van"
+	$sleep
+
+	$next
+	$sleep
+
+    wait -id "numberpicker_input" -pos 0 -timeout 5000 -theninput "Feb"
+	$sleep
+
+    wait -id "numberpicker_input" -pos 1 -timeout 5000 -theninput "1"
+	$sleep
+
+    wait -id "numberpicker_input" -pos 2 -timeout 5000 -theninput "1997"
+
+	$next
+	$sleep
+
+	wait -text "Male" -exactly true -timeout 300000 -thenclick true
+	$sleep
+
+	$next
+	$sleep
+
+	//qua email
+	wait -text "sign up with email" -timeout 300000 -thenclick true
+	$sleep
+
+	wait -text "Email Address" -exactly true -timeout 300000 -theninput "lzl42639@bcaoo.com"
+	$sleep
+
+	$next
+	$sleep
+
+	wait -text "Password" -timeout 300000 -theninput "testPass"
+	$sleep
+
+	$next
+	$sleep
+
+	wait -text "Sign up" -exactly true -timeout 300000 -thenclick true
+	$sleep
+
+	////qua mobile
+	//wait -text "Mobile nummber" -timeout 300000 -theninput "0123456789"
+	//sleep -t 1500
+
+endsequent
+

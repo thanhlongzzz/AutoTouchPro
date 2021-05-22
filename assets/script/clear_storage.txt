@@ -1,0 +1,31 @@
+
+home
+define
+
+	$pk = com.amazon.mShop.android.shopping
+	$sleep = sleep -t "random -from 1000 -to 4000"
+	
+endDefine
+
+
+loop -timeout 500000
+	wait -text "Ok" -exactly true -timeout 300000 -thenclick true
+endloop
+
+
+sequence
+	log -text "----------TASK-START---------"
+	//------------xoá dữ liệu app--------
+	opendetailapp -p "$pk"
+	if -text "Clear storage" -timeout 10000 -then 'back'
+	$sleep
+	wait -text "Storage" -exactly true  -timeout 30000 -thenclick true
+	$sleep
+	wait -text "Clear storage" -timeout 300000 -thenclick true
+	$sleep
+	$sleep
+	$sleep
+	setInfo -p "$pk" -field "current_status" -value "Cleared storage"
+	home
+	log -text "----------TASK-DONE---------"
+endSequence

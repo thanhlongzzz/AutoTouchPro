@@ -1,0 +1,307 @@
+//stop tất cả task đang chạy chưa xong
+stopAll
+log -text ""
+log -text "----start regnick-------"
+define
+	$pk = com.facebook.katana
+	$sleep = "sleep -t 1000"
+	$email = yaroslavn813kaz@hotmail.com
+	$emailPass = gv33bR2q6
+	$sex = Male
+	
+	$save = wait -text "save" -exactly true -timeout 20000 -thenclick true
+	$submit = wait -text "submit" -exactly true -timeout 20000 -thenclick true
+	$continue =	wait -text "continue" -timeout 50000 -thenclick true
+	
+	$newFeed = wait -text "News Feed" -timeout 10000 -thenClick true //Tab 1 of
+	$profile = wait -text "profile," -timeout 10000 -thenClick true //Tab 2 of
+	$friends = wait -text "friends," -timeout 10000 -thenClick true //Tab 3 of 
+	$notifi = wait -text "Notifications," -timeout 10000 -thenClick true //Tab 4 of
+	$menu = wait -text "Menu," -timeout 10000 -thenClick true //Tab 5 of
+	
+	$search = wait -text "search" -timeout 10000 -thenClick true
+	
+endDefine
+
+wait -text "not now" -exactly true -timeout 500000 -thenclick true
+
+wait -text "none of " -timeout 300000 -thenclick true
+
+loop -timeout 500000
+	wait -text "Allow" -exactly true -timeout 300000 -thenclick true
+	sleep -t 500
+endloop
+
+loop -timeout 500000
+	wait -text "Ok" -exactly true -timeout 300000 -thenclick false
+	sleep -t 2000
+	wait -text "Ok" -exactly true -timeout 3000 -thenclick true
+endloop
+
+sequence
+	//change ip
+	opennotification
+	$sleep
+	swipe -orient down
+	$sleep
+	swipe -orient down
+	$sleep
+	swipe -orient down
+	$sleep
+	swipe -orient down
+	
+	wait -text "Airplane mode" -timeout 30000 -thenclick true
+	$sleep
+	wait -text "Airplane mode" -timeout 30000 -thenclick true
+	sleep -t 5000
+	home
+	$sleep
+
+	//cleardata of facebook
+	opendetailapp -p "$pk"
+	$sleep
+	wait -text "storage" -exactly true  -timeout 300000 -thenclick true
+	$sleep
+	wait -text "clear storage" -timeout 300000 -thenclick true
+	$sleep
+	home
+	$sleep
+
+
+	//reg nick
+	openapp -p "$pk"
+	sleep -t 15000
+
+	wait -text "create new facebook account" -timeout 300000 -thenclick true
+	$sleep
+
+	$next
+	$sleep
+
+	wait -text "First Name" -timeout 50000 -theninput "randomFirstName"
+	$sleep
+
+	wait -text "Last Name" -timeout 50000 -theninput "randomLastName"
+	$sleep
+	log -text getAllEditText
+	$next
+	$sleep
+
+	wait -id "numberpicker_input" -pos 0 -thenSwipe  up
+	sleep -t 1000
+
+	wait -id "numberpicker_input" -pos 1 -thenSwipe  up
+	sleep -t 1000
+
+	loop -i 5
+		wait -id "numberpicker_input" -pos 2 -thenSwipe  down
+		sleep -t 1500
+	endLoop
+	log -text getAllEditText
+	$next
+	$sleep
+
+	wait -text "$sex" -exactly true -timeout 300000 -thenclick true
+	$sleep
+	log -text "$sex"
+	$next	
+	$sleep
+	
+	//qua mobile
+	wait -edittext "" -pos 0 -timeout 50000 -theninput "randomPhone" //tìm tất cả edittext có thể nhập được, sau đó điền random sđt vào vị trí 0
+	log -text "Phone: "
+	log -text getAllEditText -ln false //ghi log vào file mà không xuống dòng
+	$next
+	$sleep
+	
+	//hoặc có thể
+	//wait -text "Mobile number" -timeout 50000 -theninput "randomPhone"
+	
+	//password
+	wait -edittext "" -pos 0 -timeout 50000 -theninput "$emailPass"
+	log -text "Password: "
+	log -text $emailPass -ln false
+	$next
+	$sleep
+	
+	wait -text "Sign up" -exactly true -timeout 50000 -thenclick true
+	$sleep
+	
+	sleep -t 15000
+	
+	wait -text "Confirm by email" -timeout 50000 -thenclick true
+	$sleep
+	
+	wait -text "Email address" -exactly true -timeout 50000 -theninput "$email"
+	log -text "Email: "
+	log -text getAllEditText -ln false
+	$sleep
+	
+	wait -text "Continue" -timeout 50000 -thenclick true
+	$sleep
+	sleep -t 20000
+	
+	wait -edittext "" pos 0 -timeout 50000 -theninput 'readMail -user "$email" -pass "$emailPass"  -contain "facebook" -limit 15 -regex "[0-9]{5}" -regexPos 1'
+	$sleep
+	
+	wait -text "Confirm" -exactly true -timeout 50000 -thenclick true
+	$sleep
+	
+	//wait -text "Choose from Gallery" -timeout 50000 -thenclick true
+	//$sleep
+	//clickCenter
+	
+	wait -text "Take a photo" -timeout 50000 -thenclick true
+	$sleep
+	clickCenter
+	click -x 720 -y 2420
+	sleep -t 2000
+	click -x 720 -y 2420
+	sleep -t 2000
+	$save
+	
+	//wait upload image
+	$sleep
+	wait -text "Get started" -timeout 50000 -thenclick true
+	wait -text "Not now" -timeout 5000 -thenclick true
+	$sleep
+	
+	swipe -orient left
+	sleep -t 2000
+	
+	swipe -orient left
+	sleep -t 2000
+	
+	swipe -orient left
+	sleep -t 2000
+	
+	swipe -orient left
+	sleep -t 2000
+	
+	swipe -orient right
+	sleep -t 2000
+	
+	swipe -orient right
+	sleep -t 2000
+	
+	swipe -orient right
+	sleep -t 2000
+	
+	swipe -orient right
+	sleep -t 2000
+	
+	
+	wait -text "Get started" -timeout 50000 -thenclick true
+	$sleep
+	wait -text "Click to add " -timeout 50000 -thenclick true
+	$sleep
+	wait -text "(Required)" -timeout 50000 -thenclick true //Add Current City
+	$sleep
+	wait -edittext "" -pos 0 -timeout 50000 -thenInput "Hanoi"
+	log -text getAllEditText
+	$sleep
+	wait -text "Hanoi, Vietnam" -timeout 50000 -thenclick true
+	$sleep
+	$save
+	$sleep
+	$submit
+	$sleep
+	
+	wait -text "Click to add " -timeout 50000 -thenclick true
+	$sleep
+	wait -text "(Required)" -timeout 50000 -thenclick true //Add Current Homtown
+	$sleep
+	wait -edittext "" -pos 0 -timeout 50000 -thenInput "Hanoi"
+	log -text getAllEditText
+	$sleep
+	wait -text "Hanoi, Vietnam" -timeout 50000 -thenclick true
+	$sleep
+	$save
+	$sleep
+	$submit
+	
+	//skip Add school
+	wait -text "skip" -exactly true -timeout 50000 -thenclick true
+	$sleep
+	
+	wait -text "Đại học" -timeout 10000 -thenclick true
+	$sleep
+	
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+	
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+
+	wait -text "skip" -exactly true -timeout 5000 -thenclick true
+	$sleep
+	
+	
+	wait -text "View your profile" -timeout 50000 -thenclick true
+	$sleep
+	
+	
+	$menu
+	$sleep
+	swipe -orient up
+	$sleep
+	swipe -orient up
+	
+	wait -text "Settings" -timeout 50000 -thenclick true
+	$sleep
+	
+	wait -text "Settings," -timeout 50000 -thenclick true
+	$sleep
+	
+	wait -text "Security and Login" -timeout 50000 -thenclick true
+	$sleep
+	
+	wait -text "Use two-factor authentication" -timeout 50000 -thenclick true
+	$sleep
+	$continue
+	$sleep
+	
+	sleep -t 10000
+	//lay 2fa
+	wait -text "" -timeout 50000 -thenclick true //copy 2fa vào clipboard
+	$sleep
+	$continue
+	
+	wait -edittext "" -pos 0 -timeout 50000 -theninput "getOTP -key ReadFromClipboard"
+	$sleep
+	$continue
+	
+	wait -edittext "" -pos 0 -timeout 50000 -theninput "$emailPass"
+	$sleep
+	$continue
+	
+	wait -text "Done" -timeout 50000 -thenclick true
+	log -text ReadFromClipboard
+	$sleep
+	back
+	$sleep
+	back
+	$sleep
+	back
+	$sleep
+	
+	log -text "----regnick success-------"
+	//$newFeed
+	//$sleep
+	
+	//$search
+	//$sleep
+	//wait -edittext "" -timeout 50000 -theninput "randomFirstName"
+	
+endsequence

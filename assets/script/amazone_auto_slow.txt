@@ -1,0 +1,326 @@
+//Amazon auto
+home
+define
+	//screen 420dp -> 425dp
+	$pk = com.amazon.mShop.android.shopping
+	
+	//thời gian sleep giữa các thao tác
+	$sleep = sleep -t "random -from 1000 -to 4000"
+	
+	//toạ độ cuộn và random thời gian cuộn
+	$scrollUp = swipe -orient up -time "random -from 250 to 1500" //time càng bé scroll càng nhanh
+	$scrollDown = swipe -orient down -time 'random -from 250 to 1500' //time càng bé scroll càng nhanh
+	
+	//pick random 1 từ khoá trong số này và chạy
+	$randomTukhoa = random -text "bluetooth,headphone,mouse,keyboard" -var "tukhoa"
+	$getTuKhoa = 'getVar  -var "tukhoa"'
+	
+	//số lần xem sản phẩm trong 1 từ khoá
+	$count_product = 'random -from 1 -to 3'
+	//số lần bấm add to card hoặc ADD TO LIST
+	$random_addtocard = 'random -from 1 -to 3'
+	//số lần vuốt ảnh trong sản phẩm
+	$random_swipeimage = 'random -from 4 -to 7'
+	//số lần vuốt you might also like
+	$random_you_maight_also_like = 'random -from 4 -to 8'
+	//số lần xem video trong sản phẩm
+	$random_video = 'random -from 1 -to 3'
+	//số thời gian xem 1 video
+	$random_video_time = sleep -t "random -from 10000 -to 30000"
+	//số lần vuốt compare with similar item
+	$random_compare_with_similar = 'random -from 4 -to 8'
+	//số lần vuốt more to consider
+	$random_more_to_consider = 'random -from 4 -to 8'
+	//số lần vuốt customer_who_bought...
+	$random_customer_who_bought = 'random -from 4 -to 8'
+	//số lần bấm helpful
+	$random_helpful = 'random -from 1 -to 3'
+	
+	$swipeLeft = 'swipe -orient left -time "random -from 300 -to 1000"'
+	$enter = click -x 980 -y 1850
+	$search = click -x 600 -y 250
+	$swipeBellow = swipe -startX 700 -startY 1350 -endX "random -from 50 -to 200" -endY  "random -from 1350 -to 1550" -time "random -from 300 -to 1000"
+	$clickBellow = click -x "random -from 100 -to 400" -y "random -from 1200 -to 1450"
+	
+
+	
+endDefine
+
+loop -timeout 500000
+	wait -text "Ok" -exactly true -timeout 300000 -thenclick true
+endloop
+
+loop -timeout 500000
+	if -text "NONE OF THE ABOVE" -thenClick true -timeout 300000
+endloop
+
+sequence
+	log -text "----------TASK-START---------"
+	openapp -p "$pk"
+	sleep -t 5000
+
+	wait -text 'Done' -exactly true -timeout 10000 -thenInput '' -thenClick true -then '' -else ''
+	$sleep
+	wait -text 'Skip sign in' -exactly true -timeout 10000 -thenInput '' -thenClick true -then '' -else ''
+	$sleep
+	$sleep
+	$amazon_icon
+	$sleep
+	$sleep
+	$sleep
+	$sleep
+	$search
+	wait -editText '' -pos 0 -timeout 10000 -thenClick true
+	
+	$sleep
+	$sleep
+	$randomTukhoa
+	wait -text 'What are you looking for?' -exactly true -timeout 10000 -thenInput $getTuKhoa -slowinput true
+	$sleep
+	wait -editText '' -pos 0 -timeout 10000 -thenClick true
+	$sleep
+	$enter
+
+	loop -i $count_product
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		
+		loop -i 'random -from 3 -to 7'
+			swipe -orient up -time 'random -from 300 -to 800'
+			$sleep
+		endLoop
+		
+		$sleep
+		
+		click -x 'random -from 200 -to 1000' -y 'random -from 750 -to 1800'
+		click -x 'random -from 200 -to 1000' -y 'random -from 750 -to 1800'
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		wait -text 'Share' -exactly true -pos 0 -timeout 10000 -thenScrollTo true
+		
+		clickCenter
+		$sleep
+		$sleep
+		
+		setInfo -p "$pk" -field "current_status" -value "slide image"
+		
+		if -view 'Gallery' -id 'images' -timeout 3000 -then $swipeLeft -else 'click -x 700 -y 1150'
+		
+		$sleep
+		if -view 'Gallery' -id 'images' -timeout 3000 -then $swipeLeft -else 'click -x 700 -y 1250'
+		$sleep
+		if -view 'Gallery' -id 'images' -timeout 3000 -then $swipeLeft -else 'click -x 700 -y 1350'
+		$sleep
+		if -view 'Gallery' -id 'images' -timeout 3000 -then $swipeLeft -else 'click -x 700 -y 1450'
+		$sleep
+		if -view 'Gallery' -id 'images' -timeout 3000 -then $swipeLeft -else 'click -x 700 -y 1550'
+		$sleep
+		loop -i $random_swipeimage
+			if -view 'Gallery' -id 'images' -timeout 2000 -then $swipeLeft -else 'click -x 700 -y "random -from 1100 -to 1800"'
+			$sleep
+		endloop
+
+		if -view 'Gallery' -id 'images' -timeout 2000 -then 'back'
+		
+		$sleep
+		$sleep
+		$sleep
+		
+		setInfo -p "$pk" -field "current_status" -value "slide You might also like"
+		
+		loop -i 'random -from 7 -to 12'
+			swipe -orient up -time 'random -from 200 -to 800'
+			$sleep
+		endLoop
+		
+		
+		wait -text 'You might also like' -exactly true -timeout 10000 -thenScrollTo true
+		$sleep
+		loop -i $random_you_maight_also_like
+			$swipeBellow
+			$sleep
+			$sleep
+		endLoop
+		
+		$sleep
+		
+		setInfo -p "$pk" -field "current_status" -value "watch Videos"
+		
+		loop -i 'random -from 2 -to 5'
+			swipe -orient 'random -text "up,down"' -time 'random -from 200 -to 800'
+			$sleep
+		endLoop
+		
+		$sleep
+		loop -i $random_video
+			wait -text 'Videos' -exactly true -timeout 10000 -thenScrollTo true
+			$sleep
+			if -text 'Videos' -exactly true -timeout 3000 -then 'click -x "random -from 100 -to 450" -y "random -from 1225 -to 1230"'
+			$random_video_time
+			$sleep
+			if -text 'Watch' -exactly true -timeout 3000 -then '$random_video_time' -else 'click -x "random -from 100 -to 450" -y "random -from 1225 -to 1230"'
+			$sleep
+			if -text 'Watch' -exactly true -timeout 10000 -then 'back'
+			$sleep
+			$sleep
+			$sleep
+			$sleep
+			$sleep
+			$sleep
+			$swipeBellow
+			$sleep
+		endLoop
+		
+		$sleep
+		if -text 'Watch' -exactly true -timeout 10000 -then 'back'
+		$sleep
+		setInfo -p "$pk" -field "current_status" -value "Compare with similar items"
+		
+		loop -i 'random -from 2 -to 5'
+			swipe -orient 'random -text "up,down"' -time 'random -from 200 -to 800'
+			$sleep
+		endLoop
+		
+		$sleep
+		
+		loop -i $random_compare_with_similar
+			wait -text 'Compare with similar items' -exactly true -timeout 3000 -thenScrollTo true
+			$sleep
+			if -text 'Compare with similar items' -exactly true -timeout 3000 -then '$swipeBellow'
+			if -text 'Compare with similar items' -exactly true -then '$sleep'
+			if -text 'Compare with similar items' -exactly true -then '$sleep'
+		endLoop
+
+
+		setInfo -p "$pk" -field "current_status" -value "More to consider from our brands"
+
+		$sleep
+		loop -i 'random -from 2 -to 5'
+			swipe -orient 'random -text "up,down"' -time 'random -from 200 -to 800'
+			$sleep
+		endLoop
+		
+		$sleep
+		loop -i $random_more_to_consider
+			wait -text 'More to consider from our brands' -exactly true -timeout 3000 -thenScrollTo true
+			$sleep
+			if -text 'More to consider from our brands' -exactly true -timeout 3000 -then '$swipeBellow'
+			if -text 'More to consider from our brands' -exactly true -then '$sleep'
+			if -text 'More to consider from our brands' -exactly true -then '$sleep'
+		endLoop
+
+		$sleep
+		setInfo -p "$pk" -field "current_status" -value "Customer who bought this item also bought"
+
+		loop -i 'random -from 2 -to 5'
+			swipe -orient 'random -text "up,down"' -time 'random -from 200 -to 800'
+			$sleep
+		endLoop
+		
+		$sleep
+		loop -i $random_customer_who_bought
+			wait -text 'Customer who bought this item also bought' -exactly true -timeout 3000 -thenScrollTo true
+			$sleep
+			if -text 'Customer who bought this item also bought' -exactly true -timeout 3000 -then '$swipeBellow'
+			if -text 'Customer who bought this item also bought' -exactly true -then '$sleep'
+			if -text 'Customer who bought this item also bought' -exactly true -then '$sleep'
+		endLoop
+		
+		
+		setInfo -p "$pk" -field "current_status" -value "Global ratings"
+
+		$sleep
+		$sleep
+		wait -text 'global ratings' -timeout 10000 -thenScrollTo true
+		$sleep
+		$sleep
+		wait -text 'global ratings'-timeout 10000 -thenClick true
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		
+		loop -i $random_helpful
+			swipe -orient up -time 'random -from 200 -to 800'
+			$sleep
+			wait -buttonText 'Helpful' -pos 'random -from 0 -to 10' -exactly true -timeout 10000 -thenClick true
+			$sleep
+		endLoop
+		
+		loop -i $random_helpful
+			swipe -orient up -time 'random -from 200 -to 800'
+			$sleep
+			wait -buttonText 'Helpful' -pos 'random -from 0 -to 10' -exactly true -timeout 10000 -thenClick true
+			$sleep
+		endLoop
+		
+		if -text 'Email (phone for mobile accounts)' -timeout 15000 -then 'back'
+		$sleep
+		if -text 'Select Format' -exactly true -timeout 5000 -then 'back'
+		$sleep
+		back
+		wait -text 'ADD TO LIST' -timeout 3000 -thenScrollTo true
+		$sleep
+		wait -text 'ADD TO LIST' -exactly true -timeout 3000 -thenInput '' -thenClick true
+		$sleep
+		if -text 'Select Format' -exactly true -timeout 5000 -then 'back'
+		$sleep
+		loop -i $random_addtocard
+			$sleep
+			
+			wait -text 'Add to Cart' -timeout 3000 -thenScrollTo true
+			$sleep
+			wait -text 'Add to Cart' -timeout 3000 -thenClick true
+			$sleep
+			$sleep
+			wait -text 'Discover additional products' -exactly true -timeout 10000 -then 'click -x 500 -y 400'
+			$sleep
+			wait -text 'Added to Cart' -exactly true -timeout 10000  -then 'back'
+			$sleep
+			$sleep
+		endLoop
+		
+		
+		setInfo -p "$pk" -field "current_status" -value "Ran_dom action and click to product"
+		$sleep
+		$sleep
+		$sleep
+		wait -text 'random -text "Customer who bought this item also bought,More to consider from our brands,Compare with similar items,You might also like"' -exactly true -timeout 3000 -thenScrollTo true
+		$sleep
+		$clickBellow
+		
+		
+		wait -text 'random -text "Customer who bought this item also bought,More to consider from our brands,Compare with similar items,You might also like"' -exactly true -pos 0 -timeout 4000 -thenScrollTo true
+		$sleep
+		$clickBellow
+		
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		
+		if -text 'RESULTS' -exactly true -timeout 15000 -else 'back'
+		if -text 'RESULTS' -exactly true -timeout 15000 -else 'back'
+		if -text 'RESULTS' -exactly true -timeout 15000 -else 'back'
+		
+		wait -text 'Next' -exactly true -timeout 10000 -thenScrollTo true
+		$sleep
+		$sleep
+		wait -text 'Next' -exactly true -timeout 10000 -thenClick true
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+	endLoop
+	
+	home
+	
+	log -text "----------TASK-DONE---------"
+endSequence

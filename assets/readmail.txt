@@ -1,0 +1,15 @@
+//đọc mail với user và pass, tiêu đề chứa -contain, giới hạn đọc -limit mail mới nhất, lấy ra dữ liệu theo regex tại vị trí tìm được thứ regexPos (vị trí tình từ tiều đề đến hết nội dung)
+
+define
+    //tìm tất cả số có 5 chữ số
+	$email = artemgmhed@hotmail.com
+	$emailPass = ejp7llnYtul
+    $code = readMail -user "artemgmhed@hotmail.com" -pass "ejp7llnYtul"  -contain "mã xác nhận" -limit 15 -regex "[0-9]{5}" -regexPos 1
+endDefine
+
+
+sequence
+
+    wait -text "code" -timeout 30000 -theninput '$code'
+
+endSequence

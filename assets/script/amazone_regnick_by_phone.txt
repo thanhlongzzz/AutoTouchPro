@@ -1,0 +1,169 @@
+home
+define
+	//screen 420dp -> 425dp
+	$pk = com.amazon.mShop.android.shopping
+	
+	$sleep = sleep -t "random -from 1300 -to 4000"
+
+	//-------------regnick-------------
+	$amazon_icon = click -x 230 -y 130
+	$host = imappro.zoho.com
+	$email = pdhainam@gmail.com
+	$emailPass = Nolove1@123
+	
+	$randomEmail = randomEmail -name 'random -text "david,love,amazing,mrbin"' -domain 'random -text "mailann.com,mailanne.com,maildes.com,maildie.com,mailerf.com,	mailerk.com,mailerl.com,maileru.com,mailhang.com,mailhoa.com,mailhong.com,mailhou.com,mailingc.com,mailjin.com,maillay.com,maillisa.com,mailmei.com,mailpain.com,mailpalm.com,mailpre.com,mailran.com,mailsai.com,mailshi.com,mailshu.com,mailtai.com,mailtang.com,mailub.com,thanhphobodoikhatmau.com,thanhphoboidoikhatmau.com"' -var "useremail"
+	
+	$randomPass = randomPassword -var userpassword
+	$getPassword = getVar -name userpassword
+	
+	$image = var -name "imageCaptcha" -value 'getImage -startX 153 -startY 405 -endX 950 -endY 715'
+	$captchaResult = readcaptcha -key "0407590008409e6e69f340089f6a4055" -image "getVar -var imageCaptcha" -timeout 100000
+	
+	
+	//by phone
+	$requestPhone = get -url "https://api.rentcode.net/api/v2/order/request?apiKey=maaH76Urmo05DH2GLDAftyaPLyiLLlomhUztTcgmSqkv&serviceProviderId=22" -field "id" -var "id_phone"
+	$gen_link_request = replace -text "https://api.rentcode.net/api/v2/order/_id_/check?apiKey=maaH76Urmo05DH2GLDAftyaPLyiLLlomhUztTcgmSqkv" -replace "_id_" -to "getVar -name id_phone" -var "get_link_otp"
+	$getOTP = get -url "getVar -name get_link_otp" -field message -regex "[0-9]{6}" -regexPos 1 -var "otp"
+	$setPhone = get -url "getVar -name get_link_otp" -field phoneNumber -var "phone"
+	$getPhone = getVar -name phone
+
+endDefine
+
+
+loop -timeout 500000
+	wait -text "Ok" -exactly true -timeout 300000 -thenclick true
+endloop
+
+loop -timeout 500000
+	if -text "NONE OF THE ABOVE" -thenClick true -timeout 300000
+endloop
+
+
+sequence
+	log -text "----------TASK-START---------"
+	home
+	$sleep
+
+	log -text "----------Open app---------"
+	openapp -p $pk
+	$sleep
+	$sleep
+	$sleep
+	$sleep
+	$sleep
+
+	wait -text 'Which language and currency do you want to shop in?' -exactly true -timeout 10000 -then 'wait -text "Done" -exactly true -timeout 5000 -thenClick true'
+	$sleep
+	$sleep
+	if -text 'New to Amazon.com? Create an account' -exactly true -timeout 15000 -thenInput '' -thenClick true -then '' -else '$amazon_icon '
+	
+	
+	log -text "----------START REGISTER---------"
+	wait -text 'Create an account' -exactly true -pos 0 -timeout 15000 -thenClick true
+	$sleep
+	$sleep
+	//input name
+	wait -editText '' -pos 0 -timeout 100000 -thenInput 'randomFirstName'
+	$sleep
+	$requestPhone
+	$sleep
+	$gen_link_request
+	$setPhone
+	$sleep
+	$sleep
+	$sleep
+	$sleep
+	sleep -t 25000
+	$gen_link_request
+	$setPhone
+
+	//input phone
+	wait -editText "" -pos 1 -timeout 10000 -thenInput '$getPhone'
+	$sleep
+	
+	wait -editText "" -pos 0 -timeout 5000 -thenclick true
+	$sleep
+	//back
+	wait -editText "" -pos 1 -timeout 5000 -thenclick true
+	$sleep
+	//back
+	wait -editText "" -pos 2 -timeout 5000 -thenclick true
+	$sleep
+	//back
+	wait -text 'US +1' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	$sleep
+	wait -text 'Vietnam + 84' -timeout 10000 -thenScrollTo true
+	$sleep
+	wait -text 'Vietnam + 84' -timeout 10000 -thenClick true
+	$sleep
+	
+	//input pass
+	$randomPass
+	wait -editText -editText "" -pos 2 -timeout 10000 -thenInput '$getPassword'
+	$sleep
+	wait -editText '' -pos 0 -timeout 100000 -thenInput 'randomFirstName'
+	$sleep
+	log -text getAllEditText
+	log -text '$getPassword'
+	
+	wait -text 'Continue' -exactly true -timeout 5000 -thenInput '' -thenClick true
+	$sleep
+	$sleep
+	$sleep
+	$sleep
+	
+	//wait -text 'Please solve this puzzle so we know you' -timeout 50000 -then 'sleep -t 10000'
+	$sleep
+	wait -text 'Please solve this puzzle so we know you' -timeout 50000 -then {$image}
+	$sleep
+	$sleep
+	wait -text 'Please solve this puzzle so we know you' -timeout 10000 -then {wait -editText "" -timeout 10000 -pos 0 -thenInput '$captchaResult'}
+	$sleep
+	wait -text 'Continue' -exactly true -timeout 5000 -thenClick true
+	
+	$sleep
+	$sleep
+	wait -text "I'll enter the code myself" -timeout 10000 -thenClick true
+	$sleep
+	$sleep
+	
+	$getOTP
+	if -getVar "otp" -equal null -then 'sleep -t 50000'
+	$sleep
+	$getOTP
+	
+	wait -editText "" -pos 0 -timeout 20000 -theninput 'getVar -name otp'
+	$sleep
+	wait -text 'Verify' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	$sleep
+	
+	wait -buttontext 'Create' -timeout 10000 -thenClick true
+	$sleep
+	$sleep
+	wait -text 'Continue Shopping' -exactly true -timeout 10000 -thenClick true
+	$sleep
+	
+	if -text 'What are you looking for?' -timeout 10000 -then 'setInfo -p "$pk" -field "loged_user" -value "$getPhone"'
+	if -text 'What are you looking for?' -timeout 10000 -then 'setInfo -p "$pk" -field "loged_password" -value "$getPassword"'
+	
+	if -text 'mobile' -timeout 10000 -then 'setInfo -p "$pk" -field "current_status" -value "register failed not received OTP"' -else 'setInfo -p "$pk" -field "current_status" -value "register success"'
+	
+
+	home
+	log -text "----------TASK-DONE---------"
+
+	//Image: Rect(153, 405 - 928, 678) ,  text: captcha - description: null - id: null
+	// wait -text 'Continue' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	//wait -editText "" -pos 0 -thenInput 'getCaptcha'
+	
+	//điền theo mobile number 
+	//wait -text 'I'll enter the code myself' -exactly true -timeout 10000 -thenInput '' -thenClick true -then '' -else ''
+	//wait -text 'Enter OTP' -exactly true -timeout 10000 -thenInput '' -thenClick true -then '' -else ''
+	//wait -buttontext'Create your Amazon account' -exactly true -timeout 10000 -thenClick true
+	//wait -text 'Continue Shopping' -exactly true -timeout 10000 -thenInput '' -thenClick true 
+	
+	//wait -text 'US +1' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	//wait -text 'Vietnam +84, in list, item 218 of 223' -exactly true -timeout 10000 -thenInput '' -thenClick true
+	//wait -editText '(e.g., 201-555-5555)' -exactly true -timeout 10000 -thenInput ''
+	//wait -text 'Add mobile number' -exactly true -timeout 10000 -thenInput '' -thenClick true
+endSequence

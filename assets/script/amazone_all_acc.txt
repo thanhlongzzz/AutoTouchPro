@@ -1,0 +1,29 @@
+-----------tk google:
+trannam17595/Taikhoan@123
+tranlinh178488/Taikhoan@123
+tranlong17489/Taikhoan@123
+trantuan84639/Taikhoan@123
+trancuong5437/Taikhoan@123
+
+
+---------------
+
+
+1. ZOHO MAIL:  pdhainam@gmail.com | Nolove1@123
+https://mail.zoho.com/zm/#settings/all/mailaccounts
+
+2. Rentcode: thuesimthoi | thuesimthoi
+Site nó đang down, có document api trong đấy
+
+3. Anti-Captcha: concacne | wFYvk7qHgPd0APkJ
+https://anti-captcha.com/
+
+==========
+
+Flow lúc register account:
+- Input data: Name (bao gồm First Name + Last Name)
+- Sẽ có danh sách email domain, em vất nó nó vào 1 setting nào đấy (ví dụ có 10 email domain @domain.com ...)
+- Sẽ generate fristnamelastname+number@danh_sach_domain.com
+- Ghi nó vào database
+- Cứ thế mà get OTP
+- Data First Name + Last Name thì em cứ lên mạng kiếm đỡ đi
