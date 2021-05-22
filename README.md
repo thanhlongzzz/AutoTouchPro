@@ -35,7 +35,7 @@ adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunSer
 2. Body script, chạy theo kiểu gần giống `command line`
 ## Cấu trúc lệnh khai báo 
 1. Các biến phải nằm trong cặp thẻ `define` và `endDefine`
-2. Khai báo biến, các biến bắt đầu bằng `$``name` = `giá trị`
+2. Khai báo biến, các biến bắt đầu bằng `$name` = `giá trị`
 3. Các biến sẽ được nạp vào bộ nhớ để sử dụng cho body script
 4. Các biến có thể là lệnh rút gọn cho lệnh dài hoặc biến
 5. Chú ý các dấu nháy `""`, dấu `''`, và `{}` nếu trong 1 lệnh có nhiều param lồng nhau, độ ưu tiên theo thứ tự `{}` ở ngoài cùng -> `''` -> `""` : nếu không theo độ ưu tiên này thì script sẽ lỗi, ví dụ đúng
