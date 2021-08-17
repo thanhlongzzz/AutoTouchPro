@@ -1,0 +1,107 @@
+------
+17/08/2021
+thêm lệnh gettimestamp
+sequent
+    replace -text "/storage/emulated/0/image/testscreenshot.jpg" -replace "testscreenshot" -to "gettimestamp" -var "image_name"
+    UploadFile -file {screenshot -to 'getVar -name "image_name"'} -url "http://post.lalasoft.vn/data_post_image/upload.php" -field "fileToUpload"
+endSequent
+-----
+14/08/2021
+lệnh chụp ảnh màn hình lưu vào đường dẫn
+screenshot -to /storage/emulated/0/testscreenshot.jpg
+hoặc
+screenshot -to testscreenshot.jpg
+sẽ lưu vào /storage/emulated/0/AutoTouchPro/testscreenshot.jpg
+
+lệnh upload file vào 1 url và field
+//file là kết quả của lệnh chụp màn hình hoặc có đường dẫn file để upload rồi thì điền /storage/emulated/0/testscreenshot.jpg
+//url là url xử lý của server, cần hỏi người code server để biết địa chỉ file xử lý hoặc soi form html của chỗ upload sẽ thấy
+//field tương tự url, cần hỏi người code server
+
+UploadFile -file {screenshot -to /storage/emulated/0/testscreenshot.jpg} -url "http://post.lalasoft.vn/data_post_image/upload.php" -field "fileToUpload"
+ để biết filed xử lý hoặc soi form html
+
+
+-----
+03/08/2021
+wait text trên màn hình hỗ trợ find với regex
+ví dụ
+
+wait -regex '((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9])|((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$]))|(l\.php\?u=)' -thenClick true -pos 1
+-pos vị trí của node trong danh sách tìm thấy, bắt đầu từ 0
+nếu không để -pos 1 thì nó sẽ bấm hết các node mà regex find thấy. (nếu click vào node 0 mà nó chuyển màn hình đi xong mất node 1 thì node 1 bấm sẽ không có tác dụng)
+
+trường hợp tìm link trong bài post thì nó sẽ tìm ra 2 node. một node là text của cả bài viết chứa link , một node là link riêng để xử lý sự kiện bấm vào, trong trường hợp này phải để -pos 1
+bật debug logcat sẽ thấy 2 node có chứa link
+-----
+24/07
+hỗ trợ đọc biến của json từ local file
+
+ví dụ
+get -localpath "/AutoTouchPro/config.json" -field "deviceName" -var "id_phone" //đọc xong lưu vào biến id_phone
+get -localpath "/storage/emulated/0/AutoTouchPro/config.json" -field "mode.url" -var "id_phone"
+-----
+23/07
+delete file command
+
+deleteFile -path '/AutoTouchPro/backup/config.bak'
+
+hoặc có thể truyền full path '/storage/emulated/0/AutoTouchPro/backup/config.bak'
+
+
+- hỗ trợ run adb shell
+
+adbshell -su true -command {rm -r "/storage/emulated/0/AutoTouchPro/backup/config.bak"}
+máy root thì thêm -su true
+máy không root thì bỏ
++++++
+lệnh test trên adb
+
+adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunService --es command 'adbshell -su true -command {rm -r \"/storage/emulated/0/AutoTouchPro/backup/config.bak\"}'
+
++++++
+
+
+----------------
+20/07
+hỗ trợ proxy auth
+startProxy -ip "45.32.124.61:10008:wCLvA:STwpk"
+ip:port:user:pass
+nếu proxy không auth thì để ip:port
+--------------------------
+14/07
+Thêm config.json option download script từ url -> xem file config.json trong thư AutotouchPro để config
+update loop task cho phép get var ở biến i, biến i global giúp thay đổi điều kiện số lần lặp
+
+---------------------------
+24/06
+cài apk mới -> restart lại máy
+
+update backup và restore theo info device
+update lệnh lấy dữ liệu trong clipboard
+ví dụ lệnh:
+
+var -name "test" -value readFromClipboard
+wait -text "sđt" -timeout 2000 -thenInput "readFromClipboard"
+
+-----------------------------------
+19/06/2021
+App hỗ trợ module của Exposed hoặc EdExposed.
+Xóa app cũ. Cài 2 apk mới vào: apk app-show-full-info.apk để check full info device
+Cài app mới, mở lên cho phép các quyền.
+Truy cập Exposed hoặc EdExposed Manager -> Menu -> Tìm phần module -> bật app AutoTouchPro lên (Mi A1 thì tắt AT change của bọn AT đi để test)
+-> Khởi động lại máy.
+Đợi khởi động lên 1 tý cho ổn định thì chạy lệnh sau để đổi info ngẫu nhiên:
+
+adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunService --es command 'changeinfo'
+
+hoặc soạn script với lệnh changeinfo
+sau đó vào app show fullinfo check thông tin xem đổi chưa
+test shopee xem sao.
+------------------------------------
+//set file info.json trong folder với key, field và giá trị, nếu key tồn tại thì update field và value mới, nếu chưa có key thì thêm field và value mới
+setInfo -folder /AutoTouchPro/backup/com.facebook.katana/ -key 1012423940234 -field uid -value 1012423940234
+setInfo -folder "/AutoTouchPro/backup/com.facebook.katana/" -key "1012423940234" -field "2fa" -value "ABC DEF GHE FGH"
+
+//check xem file tồn tại hay ko, nếu tồn tại thì toast show lên màn hình chữ test
+if -file "/AutoTouchPro/backup/com.facebook.katana/test.bk.zip" -then {toast -text "test"} -else {}
