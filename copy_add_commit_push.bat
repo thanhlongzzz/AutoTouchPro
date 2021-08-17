@@ -7,4 +7,9 @@ xcopy /S /Q /Y /F "D:\WORK\Android\Project\AutoTouchPro\app\release\release\app-
 xcopy /S /Q /Y /F "D:\WORK\Android\Project\AutoTouchPro\app\release\release\output-metadata.json" "D:\WORK\Android\Project\AutoTouchProUpdateRelease\AutoTouchPro\output-metadata.json*" /i /e
 xcopy /Q /Y /F "D:\WORK\Android\Project\AutoTouchPro\new_release_note.txt" "D:\WORK\Android\Project\AutoTouchProUpdateRelease\AutoTouchPro\new_release_note.txt" /i /e
 
+git add -A
+git status
+git commit -m "New release"
+git push
+
 pause

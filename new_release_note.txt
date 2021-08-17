@@ -1,6 +1,7 @@
 ------
 17/08/2021
 thêm lệnh gettimestamp
+ví dụ
 sequent
     replace -text "/storage/emulated/0/image/testscreenshot.jpg" -replace "testscreenshot" -to "gettimestamp" -var "image_name"
     UploadFile -file {screenshot -to 'getVar -name "image_name"'} -url "http://post.lalasoft.vn/data_post_image/upload.php" -field "fileToUpload"
