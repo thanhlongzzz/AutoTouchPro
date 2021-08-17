@@ -1,3 +1,4 @@
+
 # Document  AutoTouchPro
 App yêu cầu root máy để hoạt động được các tính năng: backup, restore data của app khác, sock - proxy 
 # Cách cài đặt
