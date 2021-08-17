@@ -10,6 +10,7 @@ xcopy /Q /Y /F "D:\WORK\Android\Project\AutoTouchPro\new_release_note.txt" "D:\W
 git add -A
 git status
 git commit -m "New release"
+git config --global credential.helper store
 git push
 
 pause
