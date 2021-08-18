@@ -1,4 +1,3 @@
-
 # Document  AutoTouchPro
 App yêu cầu root máy để hoạt động được các tính năng: backup, restore data của app khác, sock - proxy 
 # Cách cài đặt
@@ -53,8 +52,8 @@ define
 	$sleep = sleep -t "random -from 500 -to 900"
 	
 	//toạ độ cuộn và random thời gian cuộn
-	$scrollUp = swipe -orient up -time "random -from 250 to 1500" //time càng bé scroll càng nhanh
-	$scrollDown = swipe -orient down -time 'random -from 250 to 1500' //time càng bé scroll càng nhanh
+	$scrollUp = swipe -orient up -time "random -from 250 -to 1500" //time càng bé scroll càng nhanh
+	$scrollDown = swipe -orient down -time 'random -from 250 -to 1500' //time càng bé scroll càng nhanh
 	
 	//pick random 1 từ khoá trong số này và chạy
 	$randomTukhoa = random -text "bluetooth,headphone,mouse,keyboard,adapter,paper" -var "tukhoa"
