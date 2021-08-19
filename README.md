@@ -398,13 +398,18 @@ wait -text "write to comment" -timeout 20000 -theninput "get -url https://api.mo
 
 	các param regex giống lệnh `get` bên trên
 	ví dụ
+
 ```shell script
 define
     //đọc 15 mail mới nhất, tìm tất cả số có 5 chữ số và lấy vị trí số thứ 1
 	$email = artemgmhed@hotmail.com
 	$emailPass = ejp7llnYtul
-    $code = readMail -user "artemgmhed@hotmail.com" -pass "ejp7llnYtul"  -contain "mã xác nhận" -limit 15 -regex "[0-9]{5}" -regexPos 1
+    $code = readMail -user "artemgmhed@hotmail.com" -pass "ejp7llnYtul"  -contain "mã xác nhận" -limit 15 -regex "[0-9]{5}" -regexPos 1 
 endDefine
+
+//ví dụ regex phức tạp: lấy link của html trong regex có phần group
+readMail -user "$email" -pass "$emailPass" -contain "Sign up to PlayMining" -limit 15 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "link"
+
 
 wait -text "code" -timeout 30000 -theninput '$code'
 

@@ -1,4 +1,27 @@
 ------
+20/08/2021
+
+thêm lưu biến tọa độ x và y của text tìm thấy vào biến, có thể dùng plusX và plusY để cộng trừ kết quả tọa độ
+
+sequent
+	wait -text "Like button" -timeout 5000 -varPosX "bienX" -varPosY "bienY" -plusX "-10" -plusY "10"
+	//cuộn từ điểm tọa độ đó đến endX,endY
+	swipe -startX 'getVar -name "bienX"' -startY 'getVar -name "bienY"' -endX 500 -endY 350
+endSequent
+
+
+++++++++
+
+thêm lệnh continue trong loop
+ví  dụ
+
+loop -i 10
+    //nếu if đúng thì lệnh khác phía dưới sẽ không chạy mà chạy lệnh tiếp theo
+    if -getVar "turnOn" -equal null -then {loopContinue}
+    //lệnh khác
+endLoop
+
+------
 17/08/2021
 thêm lệnh gettimestamp
 ví dụ
