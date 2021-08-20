@@ -16,7 +16,7 @@ thêm lệnh continue trong loop
 ví  dụ
 
 loop -i 10
-    //nếu if đúng thì lệnh khác phía dưới sẽ không chạy mà chạy lệnh tiếp theo
+    //nếu if đúng thì lệnh khác phía dưới sẽ không chạy mà chạy vòng lặp tiếp theo
     if -getVar "turnOn" -equal null -then {loopContinue}
     //lệnh khác
 endLoop
