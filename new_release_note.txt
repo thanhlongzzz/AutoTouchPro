@@ -1,3 +1,37 @@
+-------
+22/08/2021
+lệnh toast hỗ trợ đọc chữ
+toast -text "Test" -sound true
+++++
+hỗ trợ vòng lặp với file csv (file này dùng google doc hoặc exel gen ra, hoặc tạo bằng tay cũng được ), ví dụ file data.csv
+
+
+email,emailpass,status,phone
+laurieangelajk3k@hotmail.com,ugcR70tmt,success,
+dorajoseph92a6@hotmail.com,gbjgyuspV9j,,
+margaret27hwg@hotmail.com,Cm24tt5ng,,
+onav9ys@hotmail.com,sIeujuedaq8h,,
+
+
+
+loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
+    //mỗi lần chạy nó sẽ tự động gán các cột vào biến, ví dụ biến status sẽ lấy ra giá trị row hiện tại
+    //nếu status là thành công rồi thì chạy row tiếp theo
+	if -getVar "status" -equal "success" -then {loopContinue}
+
+	//lấy ra email của row hiện tại và input
+	wait -text 'Please enter your e-mail address' -exactly true -timeout 10000 -thenInput 'getVar -name "email"'
+	//đọc email, lấy link xác nhận trong thẻ a. -groupPos là vị trí group của regex, test trong trang regex để biết
+	//đọc link rồi lưu vào biến link
+	readMail -user {getVar -name "email"} -pass {getVar -name "emailpass"} -contain "Sign up to Facebook" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "link"
+    //nếu không có link thì sửa cột status thành notReceiveLinkInEmail
+    if -getVar "link" -equal null -then {csvDataRow -col "status" -setText "notReceiveLinkInEmail"}
+    //sửa cột phone thành test
+    csvDataRow -col "phone" -setText "test"
+
+    //sau khi chạy xong thì pull thử file data.csv ra mở bằng exel hoặc notepad để check
+endLoop
+
 ------
 20/08/2021
 
