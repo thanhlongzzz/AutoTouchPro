@@ -1,7 +1,46 @@
 -------
 22/08/2021
+
+hỗ trợ lưu biến tọa độ 4 góc của element và lệnh chụp ảnh theo tọa độ
+sequence
+    wait -text "Settings" -timeout 5000 -varPosStartX "x1" -varPosStartY "y1" -varPosEndX "x2" -varPosEndY "y2"
+
+    screenshot -to /storage/emulated/0/testscreenshot.jpg -startX 'getVar -name x1' -startY 'getVar -name y1' -endX 'getVar -name x2' -endY 'getVar -name y2'
+
+	var -name "math" -value "(x+100)/2"
+	replace -text 'getVar -name math' -replace 'x' -to 'getVar -name x1' -var 'newPos'
+	//phép tính của javascript
+	calculator -math 'getVar -name newPos' -var "test2"
+
+	getGIFImage -frame 30 -time 3000 -name "captcha.gif" -startX 'getVar -name x1' -startY 'getVar -name y1' -endX 'getVar -name x2' -endY 'getVar -name y2' -frame 30 -time 5000 -size 350
+
+
+	if -getVar "test2" -equal null -else {toast -text 'getVar -name test2' -sound true}
+
+endSequence
+
+
+++++
+lệnh tạo ảnh gif theo tọa độ, số frame, max size
+
+getGIFImage -frame 30 -time 3000 -name "captcha.gif" -startX 299 -startY 390 -endX 750 -endY 560 -frame 30 -time 5000 -size 150
+
++++++
+
+//Resize 1 ảnh với kích thước max pixel, giữ nguyên ratio
+//nếu không để param -to thì nó resize luôn ảnh đó
+resizeImage -path /storage/emulated/0/testscreenshot_not_resize.jpg -maxSize 500 -to /storage/emulated/0/resized.jpg
+
++++++
 lệnh toast hỗ trợ đọc chữ
 toast -text "Test" -sound true
+++++
+
+tính toán biểu thức theo javascript lưu vào biến
+calc -math "10+5-2" -var "test"
+hoặc
+calculator -math "(10+5)^2" -var "test2"
+
 ++++
 hỗ trợ vòng lặp với file csv (file này dùng google doc hoặc exel gen ra, hoặc tạo bằng tay cũng được ), ví dụ file data.csv
 
