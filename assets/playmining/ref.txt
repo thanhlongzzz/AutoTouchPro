@@ -50,8 +50,8 @@ endDefine
 sequence
 	loop -inCsvData "/sdcard/AutoTouchPro/500_HOTMAIL.csv"
 		
-		if -getVar "status" -equal "null" -else {loopContinue}
-		if -getVar "status" -equal "" -else {loopContinue}
+		if -getVar "status" -equal null -else {loopContinue}
+		//if -getVar "status" -equal "" -else {loopContinue}
 		
 		//if -getVar "status" -equal "success" -then {loopContinue}
 		
@@ -74,7 +74,7 @@ sequence
 		//clear data app, yêu cầu root
 		clearData -p "$pk"
 		
-		var -name "clear" -value 'random -text "1,2,3"'
+		var -name "clear" -value 'random -text "1,2"'
 		
 		
 		if -getVar "clear" -equal 1 -then {opennotification}
