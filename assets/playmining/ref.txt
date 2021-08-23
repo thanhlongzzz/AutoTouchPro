@@ -50,21 +50,24 @@ endDefine
 sequence
 	loop -inCsvData "/sdcard/AutoTouchPro/500_HOTMAIL.csv"
 		
-		if -getVar "status" -equal "success" -then {loopContinue}
+		if -getVar "status" -equal null -else {loopContinue}
+		//if -getVar "status" -equal "" -else {loopContinue}
 		
-		if -getVar "status" -equal "registerFailed" -then {loopContinue}
+		//if -getVar "status" -equal "success" -then {loopContinue}
 		
-		if -getVar "status" -equal "otpPhoneFailed" -then {loopContinue}
+		//if -getVar "status" -equal "registerFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "registerEmailFailed" -then {loopContinue}
+		//if -getVar "status" -equal "otpPhoneFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "notReceiveLinkInEmail" -then {loopContinue}
+		//if -getVar "status" -equal "registerEmailFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "notInputRefCode" -then {loopContinue}
+		//if -getVar "status" -equal "notReceiveLinkInEmail" -then {loopContinue}
 		
-		if -getVar "status" -equal "notCreateWallet" -then {loopContinue}
+		//if -getVar "status" -equal "notInputRefCode" -then {loopContinue}
 		
-		if -getVar "status" -equal "notInputPhone" -then {loopContinue}
+		//if -getVar "status" -equal "notCreateWallet" -then {loopContinue}
+		
+		//if -getVar "status" -equal "notInputPhone" -then {loopContinue}
 		
 		
 		changeinfo
@@ -104,11 +107,14 @@ sequence
 		
 		wait -text 'Insert a valid user agent' -exactly true -timeout 10000 -pos 0 -thenClick true
 		 
-		replace -text {Mozilla/5.0 (Linux; Android 7.0; SM-G930V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.134 Mobile Safari/537.36} -replace "7.0" -to 'random -text "7.0,8.0,8.1,9.0,10.0"' -var "useragent"
+		replace -text {Mozilla/5.0 (Linux; Android 7.0; SM-G930V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.134 Mobile Safari/537.36} -replace "7.0" -to 'random -text "7.0,8.0,8.1,9.0,10.0,11.0"' -var "useragent"
 		 
-		replace -text {getVar -name "useragent"} -replace "G930V" -to 'random -text "G930V,G930U,G940V,G930F,G950F,N970V,N975U,N971V,N976F,N950V,N955U,N960V,N965U,G960T,G965U,G935T,G935V,G940U,N770F,N770U,N770T"' -var "useragent"
+		replace -text {getVar -name "useragent"} -replace "G930V" -to 'random -text "G930B,G930F,G940T,G930U,G950M,N970V,N975,N970V,G976F,G950V,N955U,N960,N965V,G960F,G965F,G935U,G935,G940U,N770T,N770U,N770V,Mia1,RedmiK20,LGV20,Xiaomi,N770G,G990B,G995F"' -var "useragent"
 		
 		replace -text {getVar -name "useragent"} -replace "134" -to 'random -text "134,133,231,032,154,622,123,443,634,234,452"' -var "useragent"
+		
+		
+		replace -text {getVar -name "useragent"} -replace "4472" -to 'random -text "4472,4771,4770,4769,4772"' -var "useragent"
 		
 		wait -text 'Insert a valid user agent' -exactly true -timeout 10000 -pos 0 -thenInput {getVar -name "useragent"}
 		
@@ -124,7 +130,9 @@ sequence
 		
 		wait -text 'Please enter your e-mail address' -timeout 25000
 		
-		sleep -t 17000
+		swipe -orient up -time 300
+		
+		sleep -t 15000
 		
 		swipe -orient up -time 300
 		
@@ -220,18 +228,25 @@ sequence
 		
 		wait -text 'My Page' -exactly true -timeout 10000 -then {csvDataRow -col "status" -setText "registed"}
 		
-		wait -text 'My Page' -exactly true -timeout 10000 -thenClick true -else {csvDataRow -col "status" -setText "registerFailed"}
-		
-		wait -text 'My Page' -exactly true -timeout 10000 -then {sleep -t 10000}
-		
-		wait -text 'My Page' -pos 0 -exactly true -timeout 5000 -thenClick true
-		
-		wait -text 'My Page' -pos 1 -exactly true -timeout 5000 -thenClick true
+		wait -text 'My Page' -exactly true -timeout 15000 -else {csvDataRow -col "status" -setText "registerFailed"}
 		
 		
 		
+		wait -text 'My Page' -exactly true -timeout 5000 -then {sleep -t 10000}
 		
-		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailed"}
+		wait -text 'My Page' -exactly true -timeout 3000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
+		
+		
+		wait -text 'My Page' -exactly true -timeout 8000 -else {loopContinue}
+
+
+		wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true
+		
+		wait -text 'My Page' -pos 1 -exactly true -timeout 3000 -thenClick true
+		
+		
+		
+		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailedNotFoundEntry"}
 		
 		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
 		
@@ -242,7 +257,7 @@ sequence
 		
 		wait -text 'Entry' -exactly true -timeout 15000 -else {loopContinue}
 		
-		wait -text 'Entry' -exactly true -timeout 15000 -thenScrollTo true
+		wait -text 'Entry' -exactly true -timeout 10000 -thenScrollTo true
 		wait -text 'Entry' -exactly true -timeout 10000 -thenClick true
 		
 		
@@ -259,8 +274,9 @@ sequence
 		$sleep
 		wait -text 'Confirm' -exactly true -pos 1 -timeout 20000 -thenClick true
 		$sleep
+		$sleep
 		swipe -orient up  -time 300
-		
+		$sleep
 		wait -text 'Registration has been completed' -exactly true -timeout 20000 -then {wait -text 'Create Wallet' -exactly true -timeout 10000 -thenClick true} -else  {}
 		
 		
@@ -276,7 +292,7 @@ sequence
 		$sleep
 		$sleep
 		$sleep
-		
+		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
 		
 		$sleep
@@ -319,7 +335,7 @@ sequence
 		
 		wait -text 'Singapore' -exactly true -timeout 20000 -thenClick true
 		loop -i 10
-			wait -text 'Vietnam' -exactly true -timeout 2000 -thenClick true -then {break} -else 'swipe -orient up -time 300'
+			wait -text 'Vietnam' -exactly true -timeout 1500 -thenClick true -then {break} -else 'swipe -orient up -time 300'
 		endLoop
 		
 		wait -text 'Send' -exactly true -timeout 5000 -thenClick true
@@ -328,8 +344,8 @@ sequence
 		$sleep
 		$sleep
 		$sleep
-		$getOTP_field
 		sleep -t 10000
+		$getOTP_field
 		loop -i 15
 			if -getVar "otp" -equal null -then '$getOTPSms' -else {break}
 			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
@@ -345,6 +361,8 @@ sequence
 			wait -text 'CONGRATULATION' -exactly true -timeout 2000 -then {break}
 			
 			if -getVar "otp" -equal null -then {sleep -t 5000} -else {break}
+			
+			wait -text 'recaptcha-reload-button' -timeout 2000 -then {toast -text "Input captcha" -sound true}
 		endLoop
 		
 		if -getVar "otp" -equal null -then {toast -text "OTP not receive" -sound true}
