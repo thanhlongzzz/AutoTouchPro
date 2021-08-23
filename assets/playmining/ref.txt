@@ -109,7 +109,7 @@ sequence
 		 
 		replace -text {Mozilla/5.0 (Linux; Android 7.0; SM-G930V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.134 Mobile Safari/537.36} -replace "7.0" -to 'random -text "7.0,8.0,8.1,9.0,10.0"' -var "useragent"
 		 
-		replace -text {getVar -name "useragent"} -replace "G930V" -to 'random -text "G930V,G930U,G940V,G930F,G950F,N970V,N975U,N971V,N976F,N950V,N955U,N960V,N965U,G960T,G965U,G935T,G935V,G940U,N770F,N770U,N770T"' -var "useragent"
+		replace -text {getVar -name "useragent"} -replace "G930V" -to 'random -text "G930V,G930U,G940V,G930F,G950F,N970V,N975U,N971V,N976F,N950V,N955U,N960V,N965U,G960T,G965U,G935T,G935V,G940U,N770F,N770U,N770T,Mia1,RedmiK20,LGV20,Xiaomi,N770G,G990B,G995F"' -var "useragent"
 		
 		replace -text {getVar -name "useragent"} -replace "134" -to 'random -text "134,133,231,032,154,622,123,443,634,234,452"' -var "useragent"
 		
