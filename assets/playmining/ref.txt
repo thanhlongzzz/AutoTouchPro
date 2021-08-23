@@ -50,21 +50,24 @@ endDefine
 sequence
 	loop -inCsvData "/sdcard/AutoTouchPro/500_HOTMAIL.csv"
 		
-		if -getVar "status" -equal "success" -then {loopContinue}
+		if -getVar "status" -equal "null" -else {loopContinue}
+		if -getVar "status" -equal "" -else {loopContinue}
 		
-		if -getVar "status" -equal "registerFailed" -then {loopContinue}
+		//if -getVar "status" -equal "success" -then {loopContinue}
 		
-		if -getVar "status" -equal "otpPhoneFailed" -then {loopContinue}
+		//if -getVar "status" -equal "registerFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "registerEmailFailed" -then {loopContinue}
+		//if -getVar "status" -equal "otpPhoneFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "notReceiveLinkInEmail" -then {loopContinue}
+		//if -getVar "status" -equal "registerEmailFailed" -then {loopContinue}
 		
-		if -getVar "status" -equal "notInputRefCode" -then {loopContinue}
+		//if -getVar "status" -equal "notReceiveLinkInEmail" -then {loopContinue}
 		
-		if -getVar "status" -equal "notCreateWallet" -then {loopContinue}
+		//if -getVar "status" -equal "notInputRefCode" -then {loopContinue}
 		
-		if -getVar "status" -equal "notInputPhone" -then {loopContinue}
+		//if -getVar "status" -equal "notCreateWallet" -then {loopContinue}
+		
+		//if -getVar "status" -equal "notInputPhone" -then {loopContinue}
 		
 		
 		changeinfo
