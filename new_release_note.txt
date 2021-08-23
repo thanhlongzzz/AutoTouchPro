@@ -1,3 +1,20 @@
+-----
+24/08/2021
+
+sequence
+
+	//lưu kq josn vào biến test
+	UploadFile -file 'screenshot -to /storage/emulated/0/testscreenshot.jpg' -url "http://103.143.142.230:8080/detect_object/POD" -field "post_data" -var "test"
+	//đọc field trong josn đã lưu
+	ReadJson -fromVar "test" -field "exist" -var "result"
+	if -getVar 'result' -equal null -then {toast -text 'null'} -else {toast -text 'getVar -name result'}
+
+	ReadJson -fromVar "test" -field "data_array[0].exactly" -var "result2"
+	if -getVar 'result2' -equal null -then {toast -text 'null'} -else {toast -text 'getVar -name result2'}
+
+endSequence
+
+
 -------
 22/08/2021
 
