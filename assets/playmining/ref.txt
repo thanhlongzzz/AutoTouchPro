@@ -130,7 +130,9 @@ sequence
 		
 		wait -text 'Please enter your e-mail address' -timeout 25000
 		
-		sleep -t 17000
+		swipe -orient up -time 300
+		
+		sleep -t 15000
 		
 		swipe -orient up -time 300
 		
@@ -226,14 +228,14 @@ sequence
 		
 		wait -text 'My Page' -exactly true -timeout 10000 -then {csvDataRow -col "status" -setText "registed"}
 		
-		wait -text 'My Page' -exactly true -timeout 5000 -thenClick true -else {csvDataRow -col "status" -setText "registerFailed"}
+		wait -text 'My Page' -exactly true -timeout 15000 -else {csvDataRow -col "status" -setText "registerFailed"}
 		
 		
 		
 		wait -text 'My Page' -exactly true -timeout 5000 -then {sleep -t 10000}
 		
 		wait -text 'My Page' -exactly true -timeout 3000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
-
+		
 		
 		wait -text 'My Page' -exactly true -timeout 8000 -else {loopContinue}
 
@@ -246,11 +248,11 @@ sequence
 		
 		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailedNotFoundEntry"}
 		
-		//wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
 		
-		//wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true}
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true}
 		
-		//wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 1 -exactly true -timeout 3000 -thenClick true}
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 1 -exactly true -timeout 3000 -thenClick true}
 		
 		
 		wait -text 'Entry' -exactly true -timeout 15000 -else {loopContinue}
