@@ -3,9 +3,9 @@
 
 sequence
 
-	//lưu kq josn vào biến test
+	//lưu kq json vào biến test
 	UploadFile -file 'screenshot -to /storage/emulated/0/testscreenshot.jpg' -url "http://103.143.142.230:8080/detect_object/POD" -field "post_data" -var "test"
-	//đọc field trong josn đã lưu
+	//đọc field trong json đã lưu
 	ReadJson -fromVar "test" -field "exist" -var "result"
 	if -getVar 'result' -equal null -then {toast -text 'null'} -else {toast -text 'getVar -name result'}
 
