@@ -1,0 +1,364 @@
+
+home
+
+loop -i 5000
+	wait -text ' stopped' -timeout 400000 -thenClick true -plusY 350
+endLoop
+
+
+loop -i 5000
+	wait -text 'Close' -exactly true -timeout 200000 -thenClick true
+endLoop
+
+loop -i 5000
+	wait -text 'Register your phone number' -exactly true -timeout 200000 -thenClick true
+endLoop
+
+
+define
+
+	$pk = org.bromite.bromite
+	
+	$sleep = sleep -t "random -from 1000 -to 2500"
+	$email = getVar -name email
+	$emailPass = getVar -name emailpass
+	$refCode = BX5FD0
+	
+	///sim
+	$requestPhone = get -url "http://otpsim.com/api/phones/request?token=270eb8cde9351fc49c47f606dc6ab691&service=63&network=2&exceptPrefix=85" -field "data.session" -var "session"
+	$gen_link_request = replace -text "http://otpsim.com/api/sessions/_id_?token=270eb8cde9351fc49c47f606dc6ab691" -replace "_id_" -to "getVar -name session" -var "get_link_otp"
+	$getOTP_field = get -url "getVar -name get_link_otp" -field "data.messages[0].otp" -var "otp"
+	$getOTP = get -url "getVar -name get_link_otp" -field "data.messages[0].audio_content" -regex "[0-9]{6}" -regexPos 1 -var "otp"
+	$getOTPSms = get -url "getVar -name get_link_otp" -field "data.messages[0].sms_content" -regex "[0-9]{6}" -regexPos 1 -var "otp"
+	$getPhone = get -url "getVar -name get_link_otp" -field data.phone_number -var "phone"
+	$getPhoneResult = getVar -name "phone"
+	$getOTPResult = getVar -name otp
+
+	$createCheckPhoneUrl = replace -text "http://post.lalasoft.vn/check_shopee/get.php?phone=84_phone_" -replace "_phone_" -to "getVar -name phone" -var "get_link_check_phone"
+	$checkPhone = get -url "getVar -name get_link_check_phone" -field status -var "userstatus"
+
+	//
+	$randomPass = randomPassword -var userpassword
+	$getPassword = getVar -name userpassword
+
+	//captcha
+	$genGifImage = var -name "imageCaptcha" -value 'getGIFImage -frame 30 -time 3000 -name "captcha.gif" -startX 299 -startY 390 -endX 750 -endY 560 -frame 30 -time 5000 -size 150'
+	$captchaResult = readcaptcha -key "0407590008409e6e69f340089f6a4055" -image "getVar -var imageCaptcha" -timeout 100000
+
+endDefine
+
+sequence
+	loop -inCsvData "/sdcard/AutoTouchPro/500_HOTMAIL.csv"
+		
+		if -getVar "status" -equal "success" -then {loopContinue}
+		
+		if -getVar "status" -equal "registerFailed" -then {loopContinue}
+		
+		if -getVar "status" -equal "otpPhoneFailed" -then {loopContinue}
+		
+		if -getVar "status" -equal "registerEmailFailed" -then {loopContinue}
+		
+		if -getVar "status" -equal "notReceiveLinkInEmail" -then {loopContinue}
+		
+		if -getVar "status" -equal "notInputRefCode" -then {loopContinue}
+		
+		if -getVar "status" -equal "notCreateWallet" -then {loopContinue}
+		
+		if -getVar "status" -equal "notInputPhone" -then {loopContinue}
+		
+		
+		changeinfo
+		//clear data app, yêu cầu root
+		clearData -p "$pk"
+		
+		var -name "clear" -value 'random -text "1,2,3"'
+		
+		
+		if -getVar "clear" -equal 1 -then {opennotification}
+		if -getVar "clear" -equal 1 -then {$sleep}
+		if -getVar "clear" -equal 1 -then {wait -text "Off - Airplane mode"  -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {$sleep}
+		if -getVar "clear" -equal 1 -then {wait -text "On - Airplane mode" -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {$sleep}
+		if -getVar "clear" -equal 1 -then {home}
+		if -getVar "clear" -equal 1 -then {$sleep}
+		
+		//opennotification
+		//$sleep
+		//wait -text "Off - Airplane mode"  -timeout 20000 -thenclick true
+		//$sleep
+		//wait -text "On - Airplane mode" -timeout 20000 -thenclick true
+		//home
+		//$sleep
+		
+		openApp -p "$pk"
+		$sleep
+		
+		wait -text 'More options' -exactly true -timeout 30000 -thenClick true
+		
+		wait -text 'Settings' -exactly true -timeout 10000 -thenClick true
+		$sleep
+		swipe -orient up -time 300
+		
+		wait -text 'User Agent' -exactly true -timeout 10000 -thenClick true
+		
+		wait -text 'Insert a valid user agent' -exactly true -timeout 10000 -pos 0 -thenClick true
+		 
+		replace -text {Mozilla/5.0 (Linux; Android 7.0; SM-G930V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.134 Mobile Safari/537.36} -replace "7.0" -to 'random -text "7.0,8.0,8.1,9.0,10.0"' -var "useragent"
+		 
+		replace -text {getVar -name "useragent"} -replace "G930V" -to 'random -text "G930V,G930U,G940V,G930F,G950F,N970V,N975U,N971V,N976F,N950V,N955U,N960V,N965U,G960T,G965U,G935T,G935V,G940U,N770F,N770U,N770T"' -var "useragent"
+		
+		replace -text {getVar -name "useragent"} -replace "134" -to 'random -text "134,133,231,032,154,622,123,443,634,234,452"' -var "useragent"
+		
+		wait -text 'Insert a valid user agent' -exactly true -timeout 10000 -pos 0 -thenInput {getVar -name "useragent"}
+		
+		$sleep
+		back
+		$sleep
+		back
+		$sleep
+		back
+		
+		OpenDeepLink -p "$pk" -url "https://playmining.com/accounts/signup"
+		$sleep
+		
+		wait -text 'Please enter your e-mail address' -timeout 25000
+		
+		sleep -t 17000
+		
+		swipe -orient up -time 300
+		
+		var -name "finded" -value "null"
+		loop -i 3
+			wait -text 'Please enter your e-mail address' -timeout 5000 -thenScrollTo true
+			wait -text 'Please enter your e-mail address' -exactly true -timeout 10000 -thenInput '$email' -thenScrollTo true -then 'var -name "finded" -value "true"' -else 'swipe -orient up -time "random -from 250 -to 1500"'
+			if -getVar "finded" -equal null -else {break}
+		endLoop
+		
+		wait -text 'Please enter your e-mail address' -timeout 5000 -thenClick true
+		$sleep
+		back
+		$sleep
+		wait -text 'Accept the Terms of Service' -exactly true -timeout 10000 -thenClick true
+		$sleep
+		
+		//wait -text 'Please enter your e-mail address' -exactly true -timeout 5000 -thenInput '$email'
+		
+		$sleep
+		wait -text 'Accept the Terms of Service' -exactly true -timeout 10000 -thenClick true -plusY "150"
+		$sleep
+		$sleep
+		sleep -t 10000
+		loop -i 7
+			readMail -user "$email" -pass "$emailPass" -contain "Sign up to PlayMining" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "link"
+			if -getVar "link" -equal null -then {$sleep} -else {break}
+		endLoop
+		
+		if -getVar "link" -equal null -then {csvDataRow -col "status" -setText "notReceiveLinkInEmail"}
+		
+		if -getVar "link" -equal null -then {loopContinue}
+
+		$sleep
+		replace -text 'getVar -name "link"' -replace '&amp;' -to '&' -var "link"
+		
+		//wait -text 'MENU' -exactly true -timeout 5000 -thenClick true
+		
+		//wait -text 'New tab' -exactly true -timeout 5000 -thenClick true
+		
+		$sleep
+		
+		wait -edittext '' -pos 0 -timeout 5000 -thenclick true -thenInput 'getVar -name "link"'
+		$sleep
+		wait -text 'line_1' -thenclick true -timeout 5000
+		$sleep
+		
+		//OpenDeepLink -p "$pk" -url {getVar -name "link"}
+		
+				
+		//wait -edittext 'Please enter your e-mail address' -exactly true -timeout 15000 -thenInput '$email'
+		//$sleep
+		//wait -text 'Confirm' -exactly true -timeout 5000 -thenClick true
+		//$sleep
+		
+		
+		//OpenDeepLink -p "$pk" -url {https://playmining.com/accounts/login}
+		
+		//var -name "finded" -value "null"
+		//loop -i 3
+			//wait -text 'Please enter your e-mail address' -exactly true -timeout 10000 -thenInput '$email' -thenScrollTo true -then 'var -name "finded" -value "true"' -else 'swipe -orient up -time "random -from 250 -to 1500"'
+			//if -getVar "finded" -equal null -else {break}
+		//endLoop
+		
+		//wait -text 'Please enter your e-mail address' -exactly true -timeout 10000 -thenInput '$email'
+		
+		//wait -buttontext "Sign in" -exactly true -pos 1 -thenClick true -timeout 10000
+	
+		//$sleep
+		//$sleep
+		//sleep -t 10000
+		
+		//loop -i 7
+			//readMail -user "$email" -pass "$emailPass" -contain "Sign in to PlayMining" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linklogin"
+			//if -getVar "linklogin" -equal null -then {$sleep} -else {break}
+		//endLoop
+		//$sleep
+		//replace -text 'getVar -name "linklogin"' -replace '&amp;' -to '&' -var "linklogin"
+		//sleep -t 5000
+		
+		
+		//wait -edittext '' -pos 0 -timeout 5000 -thenclick true -thenInput 'getVar -name "linklogin"'
+		
+		//wait -text 'line_1' -thenclick true -timeout 5000
+		
+		$sleep
+		$sleep
+		
+		sleep -t 10000
+		
+		//wait -text 'MENU' -exactly true -pos 1 -timeout 15000 -thenClick true
+		//$sleep
+		
+		wait -text 'My Page' -exactly true -timeout 10000 -then {csvDataRow -col "status" -setText "registed"}
+		
+		wait -text 'My Page' -exactly true -timeout 10000 -thenClick true -else {csvDataRow -col "status" -setText "registerFailed"}
+		
+		wait -text 'My Page' -exactly true -timeout 10000 -then {sleep -t 10000}
+		
+		wait -text 'My Page' -pos 0 -exactly true -timeout 5000 -thenClick true
+		
+		wait -text 'My Page' -pos 1 -exactly true -timeout 5000 -thenClick true
+		
+		
+		
+		
+		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailed"}
+		
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
+		
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true}
+		
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 1 -exactly true -timeout 3000 -thenClick true}
+		
+		
+		wait -text 'Entry' -exactly true -timeout 15000 -else {loopContinue}
+		
+		wait -text 'Entry' -exactly true -timeout 15000 -thenScrollTo true
+		wait -text 'Entry' -exactly true -timeout 10000 -thenClick true
+		
+		
+		$sleep
+		wait -text 'Please enter the referral code' -exactly true -timeout 15000 -thenScrollTo true -else {swipe -orient up -time 300}
+
+		wait -text 'Please enter the referral code' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "notInputRefCode"}
+		wait -text 'Please enter the referral code' -exactly true -timeout 10000 -else {loopContinue}
+		
+		wait -text 'Please enter the referral code' -exactly true -timeout 10000 -thenInput '$refCode'
+		
+		$sleep
+		wait -text 'Confirm' -exactly true -timeout 10000 -thenClick true
+		$sleep
+		wait -text 'Confirm' -exactly true -pos 1 -timeout 20000 -thenClick true
+		$sleep
+		swipe -orient up  -time 300
+		
+		wait -text 'Registration has been completed' -exactly true -timeout 20000 -then {wait -text 'Create Wallet' -exactly true -timeout 10000 -thenClick true} -else  {}
+		
+		
+		
+		wait -text 'Create Wallet' -exactly true -timeout 10000 -thenClick true
+		
+		wait -text 'Move' -exactly true -timeout 15000 -else {csvDataRow -col "status" -setText "notCreateWallet"}
+
+		wait -text 'Move' -exactly true -timeout 10000 -thenClick true -else {loopContinue}
+		
+		$sleep
+		wait -text 'Please enter your e-mail address.' -exactly true -timeout 20000
+		$sleep
+		$sleep
+		$sleep
+		
+		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
+		
+		$sleep
+		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true
+		
+		
+		sleep -t 10000
+		
+		$sleep
+		loop -i 10
+			readMail -user "$email" -pass "$emailPass" -contain "Login to NFT Marketplace by DEP" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linkwallet"
+			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
+		endLoop
+		
+
+		$sleep
+		replace -text 'getVar -name "linkwallet"' -replace '&amp;' -to '&' -var "linkwallet"
+		
+		
+		wait -edittext '' -pos 0 -timeout 5000 -thenclick true -thenInput 'getVar -name "linkwallet"'
+		
+		wait -text 'line_1' -thenclick true -timeout 5000
+		
+		$sleep
+		$sleep
+
+		//OpenDeepLink -p "$pk" -url {getVar -name "linkwallet"}
+		
+
+		
+		if -text 'Phone Number' -timeout 100000 -then {$requestPhone} -else {loopContinue}
+		$sleep
+		if -text 'Phone Number' -timeout 10000 -then {$gen_link_request}
+		if -text 'Phone Number' -timeout 10000 -then {$getPhone}
+		if -getVar "phone" -equal null -then 'sleep -t 15000'
+		if -getVar "phone" -equal null -then {$getPhone}
+		
+		replace -text '+84_number_' -replace '_number_' -to '$getPhoneResult' -var "newPhone"
+		wait -text 'Phone Number' -exactly true -timeout 10000 -thenInput 'getVar -name newPhone'
+		
+		wait -text 'Singapore' -exactly true -timeout 20000 -thenClick true
+		loop -i 10
+			wait -text 'Vietnam' -exactly true -timeout 2000 -thenClick true -then {break} -else 'swipe -orient up -time 300'
+		endLoop
+		
+		wait -text 'Send' -exactly true -timeout 5000 -thenClick true
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$getOTP_field
+		sleep -t 10000
+		loop -i 15
+			if -getVar "otp" -equal null -then '$getOTPSms' -else {break}
+			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
+			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
+			
+			//if -getVar "otp" -equal null -then 'sleep -t 5000'
+			//if -getVar "otp" -equal null -then '$getOTPSms'
+			
+			wait -text 'recaptcha-reload-button' -timeout 2000 -then {toast -text "Input captcha" -sound true}
+			
+			wait -text 'recaptcha-reload-button' -timeout 2000 -then {sleep -t 15000}
+			
+			wait -text 'CONGRATULATION' -exactly true -timeout 2000 -then {break}
+			
+			if -getVar "otp" -equal null -then {sleep -t 5000} -else {break}
+		endLoop
+		
+		if -getVar "otp" -equal null -then {toast -text "OTP not receive" -sound true}
+		
+		loop -i 10
+			wait -edittext "6-Digit" -pos 0 -timeout 10000 -thenInput '$getOTPResult' -then {break} -else {csvDataRow -col "status" -setText "notInputPhone"}
+			wait -text 'CONGRATULATION' -exactly true -timeout 2000 -then {break}
+		endLoop
+		
+		wait -text 'Confirm' -exactly true -timeout 10000 -thenClick true
+		
+		wait -text 'CONGRATULATION' -exactly true -timeout 40000 -then {csvDataRow -col "status" -setText "success"}
+		wait -text 'CONGRATULATION' -exactly true -timeout 5000 -then {csvDataRow -col "phone" -setText "getVar -name newPhone"}
+		
+	endLoop
+	
+endSequence

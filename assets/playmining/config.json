@@ -1,0 +1,11 @@
+{
+  "mode": "loadFromUrl", "_comment1": "chọn loadFromUrl hoặc loadFromFile",
+  "downloadWhenClickRun": "false",  "_comment2": "true thì mỗi khi bấm run nó sẽ download script vào filename, nếu để false thì nó sẽ",
+  "loadFromUrl": {
+    "url": "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/ref.txt",
+    "filename": "ref.txt"
+  },
+  "loadFromFile": {
+    "filename": "ref.txt"
+  }
+}
