@@ -21,8 +21,8 @@ define
 	$sleep = sleep -t "random -from 1000 -to 2500"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
-	$refCode = BX5FD0
-	
+	//$refCode = BX5FD0
+	$refCode = FE2CC7
 	///sim
 	//$requestPhone = get -url "http://otpsim.com/api/phones/request?token=270eb8cde9351fc49c47f606dc6ab691&service=63&network=2&exceptPrefix=85" -field "data.session" -var "session"
 	//$gen_link_request = replace -text "http://otpsim.com/api/sessions/_id_?token=270eb8cde9351fc49c47f606dc6ab691" -replace "_id_" -to "getVar -name session" -var "get_link_otp"
@@ -36,9 +36,9 @@ define
 	
 	//chothuesimcode
 	
-	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=49c84fd6&appId=1285" -var "response"
+	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=645fff3c&appId=1285" -var "response"
 	
-	$gen_link_request = replace -text "https://chothuesimcode.com/api?act=code&apik=49c84fd6&id=_id_" -replace "_id_" -to 'ReadJson -fromVar "response" -field "Result.Id"' -var "get_link_otp"
+	$gen_link_request = replace -text "https://chothuesimcode.com/api?act=code&apik=645fff3c&id=_id_" -replace "_id_" -to 'ReadJson -fromVar "response" -field "Result.Id"' -var "get_link_otp"
 	$getOTP_field = get -url "getVar -name get_link_otp" -field "Result.Code" -var "otp"
 	$getOTP = get -url "getVar -name get_link_otp" -field "Result.SMS" -regex "[0-9]{6}" -regexPos 1 -var "otp"
 	$getOTPSms = get -url "getVar -name get_link_otp" -field "Result.SMS" -regex "[0-9]{6}" -regexPos 1 -var "otp"
@@ -48,7 +48,7 @@ define
 endDefine
 
 sequence
-	loop -inCsvData "/sdcard/AutoTouchPro/500_HOTMAIL.csv"
+	loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 		
 		if -getVar "status" -equal null -else {loopContinue}
 		//if -getVar "status" -equal "" -else {loopContinue}
