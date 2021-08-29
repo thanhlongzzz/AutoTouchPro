@@ -36,7 +36,7 @@ define
 	
 	//chothuesimcode
 	
-	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=645fff3c&appId=1285" -var "response"
+	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=645fff3c&appId=1285&carrier=Viettel" -var "response"
 	
 	$gen_link_request = replace -text "https://chothuesimcode.com/api?act=code&apik=645fff3c&id=_id_" -replace "_id_" -to 'ReadJson -fromVar "response" -field "Result.Id"' -var "get_link_otp"
 	$getOTP_field = get -url "getVar -name get_link_otp" -field "Result.Code" -var "otp"
@@ -235,7 +235,7 @@ sequence
 		
 		
 		
-		wait -text 'My Page' -exactly true -timeout 5000 -then {sleep -t 5000}
+		wait -text 'My Page' -exactly true -timeout 3000 -then {sleep -t 5000}
 		
 		wait -text 'My Page' -exactly true -timeout 3000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
 		
