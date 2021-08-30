@@ -13,6 +13,10 @@ loop -i 5000
 	wait -text 'Register your phone number' -exactly true -timeout 200000 -thenClick true
 endLoop
 
+loop -i 5000
+	wait -text 'Please enter your e-mail address' -exactly true -timeout 500000 -thenInput '$email'
+	wait -text 'Confirm' -exactly true -timeout 5000 -thenClick true
+endLoop
 
 define
 
