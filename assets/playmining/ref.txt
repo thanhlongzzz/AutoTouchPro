@@ -349,7 +349,7 @@ sequence
 		$sleep
 		sleep -t 10000
 		$getOTP_field
-		loop -i 15
+		loop -i 3
 			if -getVar "otp" -equal null -then '$getOTPSms' -else {break}
 			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
 			
@@ -364,7 +364,7 @@ sequence
 			
 			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
 
-			if -getVar "otp" -equal null -then {sleep -t 5000} -else {break}
+			if -getVar "otp" -equal null -then {sleep -t 10000} -else {break}
 			
 			wait -text 'recaptcha-reload-button' -timeout 2000 -then {toast -text "Input captcha" -sound true}
 		endLoop
