@@ -14,7 +14,8 @@ loop -i 5000
 endLoop
 
 loop -i 5000
-	wait -text 'Please enter your e-mail address' -exactly true -timeout 500000 -thenInput '$email'
+	wait -edittext 'Please enter your e-mail address' -timeout 500000 -thenInput '$email'
+	$sleep
 	wait -text 'Confirm' -exactly true -timeout 5000 -thenClick true
 endLoop
 
