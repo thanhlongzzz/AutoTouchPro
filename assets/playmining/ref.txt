@@ -379,6 +379,8 @@ sequence
 		
 		if -getVar "otp" -equal null -then {toast -text "OTP not receive" -sound true}
 		
+		if -getVar "otp" -equal null -then {loopContinue}
+		
 		loop -i 10
 			wait -edittext "6-Digit" -pos 0 -timeout 10000 -thenInput '$getOTPResult' -then {break} -else {csvDataRow -col "status" -setText "notInputPhone"}
 			wait -text 'CONGRATULATION' -exactly true -timeout 2000 -then {break}
