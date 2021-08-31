@@ -4,8 +4,15 @@ hỗ trợ download file
 
 DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/new_release_note.txt" -to "/sdcard/AutoTouchPro/new_release_note.txt"
 
+if -file "/sdcard/AutoTouchPro/new_release_note.txt" -then {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/new_release_note.txt"}
+
 nếu không để param -to nó sẽ tự động lưu file new_release_note.txt vào thư mục AutoTouchPro
 
+++++
+
+lệnh ghi text ra file
+//ln là xuống dòng rồi ghi, nếu không thì nó ghi tiếp dòng cuối// muốn ghi đè file thì dùng lệnh xóa file rồi ghi
+log -text "getVar -name myjson" -ln true -file "/sdcard/test.txt"
 
 -----
 24/08/2021
