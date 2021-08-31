@@ -30,7 +30,8 @@ define
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	//$refCode = BX5FD0
-	$refCode = FE2CC7
+	//$refCode = FE2CC7
+	$refCode = RW4WW8
 	///sim
 	//$requestPhone = get -url "http://otpsim.com/api/phones/request?token=270eb8cde9351fc49c47f606dc6ab691&service=63&network=2&exceptPrefix=85" -field "data.session" -var "session"
 	//$gen_link_request = replace -text "http://otpsim.com/api/sessions/_id_?token=270eb8cde9351fc49c47f606dc6ab691" -replace "_id_" -to "getVar -name session" -var "get_link_otp"
@@ -56,6 +57,9 @@ define
 endDefine
 
 sequence
+
+	if -file "/sdcard/AutoTouchPro/data.csv" -then {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
+	
 	loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 		
 		if -getVar "status" -equal null -else {loopContinue}

@@ -1,3 +1,12 @@
+-----------
+31/08/2021
+hỗ trợ download file
+
+DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/new_release_note.txt" -to "/sdcard/AutoTouchPro/new_release_note.txt"
+
+nếu không để param -to nó sẽ tự động lưu file new_release_note.txt vào thư mục AutoTouchPro
+
+
 -----
 24/08/2021
 
