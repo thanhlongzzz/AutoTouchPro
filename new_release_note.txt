@@ -1,6 +1,20 @@
 ------
 02/09/2021
 
+//mặc định biến i tăng theo loop
+getVar -name i
+//nó sẽ theo i của loop
+//hỗ trợ đọc json loop
+loop -i 100
+    UploadFile -file 'screenshot -to /storage/emulated/0/testscreenshot.jpg' -url "http://103.143.142.230:8080/detect_object/POD" -field "post_data" -var "json"
+    replace -text 'data[pos].id' -replace 'pos' -to 'getVar -name i' -var 'fieldToRead'
+    ReadJson -fromVar 'json' -field 'getVar -name fieldToRead' -var 'id'
+    if -getVar 'id' -equal null -then {break}
+endLoop
+
++++++++++++++++++++
+
+
 //wait text theo xpath của file dump uiautomator.xml// cách dump view uiautomator tìm google
 //vì dump xml tốn time nên để timeout 10000
 sequent
@@ -8,6 +22,10 @@ sequent
 endSequent
 
 //hỗ trợ click nhiều view nếu find được nhiều + delay mỗi lần click
+
+
+
+
 
 -----------
 31/08/2021
