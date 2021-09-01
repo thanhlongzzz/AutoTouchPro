@@ -1,3 +1,14 @@
+------
+02/09/2021
+
+//wait text theo xpath của file dump uiautomator.xml// cách dump view uiautomator tìm google
+//vì dump xml tốn time nên để timeout 10000
+sequent
+	wait -xpath {(  (//*[ contains(@class,'ViewGroup') and .//*[contains(@text,'Sponsored')] and .//*[ contains(@class,'ImageView') and not( contains(@content-desc,'Profile'))] ])[last()] //*[ contains(@class,'ImageView') and not( contains(@content-desc,'Profile'))] )[1]} -timeout 10000 -thenClick true -clickAll true -clickAllDelay 1000
+endSequent
+
+//hỗ trợ click nhiều view nếu find được nhiều + delay mỗi lần click
+
 -----------
 31/08/2021
 hỗ trợ download file
