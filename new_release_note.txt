@@ -1,3 +1,9 @@
+-----
+03/09
+dùng lệnh dumpview để lấy tất cả view hiện tại theo xml, file được lưu ở AutoTouchPro/dumpview.xml
+adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunService --es command 'dumpview'
+adb pull /sdcard/AutoTouchPro/dumpview.xml
+
 ------
 02/09/2021
 
@@ -15,9 +21,13 @@ endLoop
 +++++++++++++++++++
 
 
-//wait text theo xpath của file dump uiautomator.xml// cách dump view uiautomator tìm google
+//wait text theo xpath của file dump
 //vì dump xml tốn time nên để timeout 10000
 sequent
+    //dùng lệnh dumpview để lấy tất cả view hiện tại theo xml, file được lưu ở AutoTouchPro/dumpview.xml
+    //adb pull /sdcard/AutoTouchPro/dumpview.xml
+
+    DumpView
 	wait -xpath {(  (//*[ contains(@class,'ViewGroup') and .//*[contains(@text,'Sponsored')] and .//*[ contains(@class,'ImageView') and not( contains(@content-desc,'Profile'))] ])[last()] //*[ contains(@class,'ImageView') and not( contains(@content-desc,'Profile'))] )[1]} -timeout 10000 -thenClick true -clickAll true -clickAllDelay 1000
 endSequent
 
