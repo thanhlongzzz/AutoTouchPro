@@ -1,0 +1,5 @@
+<permissions>
+    <privapp-permissions package="com.tzappstudio.autotouchpro.updater">
+        <permission name="android.permission.INSTALL_PACKAGES" />
+    </privapp-permissions>
+</permissions>
