@@ -1,3 +1,26 @@
+----
+05/09
+REST API
+
+sequence
+	SubmitData -method "POST"  -url "https://us-central1-tikfans-prod-a3557.cloudfunctions.net/getVideoFromLink" -header {Content-Type:application/json|origin:https://app.tikfans.bumbumapp.com} -body `{"data":{"url":"https://vt.tiktok.com/ZSJTQXmw9/"}}` -var "result"
+
+	toast -text 'getVar -name result'
+
+
+	SubmitData -method "GET"  -url "https://api.weatherapi.com/v1/current.json?key=e30e1ce3abb64f87993174619210509&q=Hanoi&aqi=no" -header {Content-Type:*/*} -var "result"
+
+	deleteFile -path '/sdcard/test.json'
+	log -text 'getVar -name result' -file "/sdcard/test.json"
+
+    get -localpath "/sdcard/test.json" -field "location.name" -var "location"
+
+    sleep -t 3000
+    toast -text 'getVar -name location'
+
+endSequence
+
+
 -----
 03/09
 dùng lệnh dumpview để lấy tất cả view hiện tại theo xml, file được lưu ở AutoTouchPro/dumpview.xml
