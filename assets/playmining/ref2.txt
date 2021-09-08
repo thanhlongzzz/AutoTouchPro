@@ -59,7 +59,7 @@ endDefine
 
 sequence
 
-	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
+	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/data_device_2.csv" -to "/sdcard/AutoTouchPro/data.csv"}
 	
 	loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 		
@@ -92,9 +92,9 @@ sequence
 		
 		if -getVar "clear" -equal 1 -then {opennotification}
 		if -getVar "clear" -equal 1 -then {$sleep}
-		if -getVar "clear" -equal 1 -then {wait -text "Off - Airplane mode"  -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {wait -text "Airplane mode"  -timeout 20000 -thenclick true}
 		if -getVar "clear" -equal 1 -then {$sleep}
-		if -getVar "clear" -equal 1 -then {wait -text "On - Airplane mode" -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {wait -text "Airplane mode" -timeout 20000 -thenclick true}
 		if -getVar "clear" -equal 1 -then {$sleep}
 		if -getVar "clear" -equal 1 -then {home}
 		if -getVar "clear" -equal 1 -then {$sleep}
@@ -250,7 +250,7 @@ sequence
 		
 		wait -text 'My Page' -exactly true -timeout 3000 -then {sleep -t 5000}
 		
-		wait -text 'My Page' -exactly true -timeout 3000 -else {click -x 960 -y 300}
+		wait -text 'My Page' -exactly true -timeout 3000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
 		
 		
 		wait -text 'My Page' -exactly true -timeout 5000 -else {loopContinue}
@@ -264,7 +264,7 @@ sequence
 		
 		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailedNotFoundEntry"}
 		
-		wait -text 'Entry' -exactly true -timeout 5000 -else {click -x 960 -y 300}
+		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
 		
 		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true}
 		
