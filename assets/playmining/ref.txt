@@ -14,6 +14,10 @@ loop -i 5000
 endLoop
 
 loop -i 5000
+	wait -text 'cancel' -exactly true -timeout 200000 -thenClick true
+endLoop
+
+loop -i 5000
 	wait -edittext 'Please enter your e-mail address' -timeout 500000
 	sleep -t 5000
 	$sleep
@@ -26,7 +30,7 @@ define
 
 	$pk = org.bromite.bromite
 	
-	$sleep = sleep -t "random -from 1000 -to 2500"
+	$sleep = sleep -t "random -from 1000 -to 3500"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	$refCode = BX5FD0
@@ -310,16 +314,25 @@ sequence
 		$sleep
 		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
-		
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
 		$sleep
 		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true
 		
-		
 		sleep -t 10000
-		
+		$sleep
+		$sleep
 		$sleep
 		loop -i 10
 			readMail -user "$email" -pass "$emailPass" -contain "Login to NFT Marketplace by DEP" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linkwallet"
+			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 		endLoop
 		
@@ -338,11 +351,15 @@ sequence
 		//OpenDeepLink -p "$pk" -url {getVar -name "linkwallet"}
 		
 
-		
+		if -text 'Phone Number' -timeout 20000 -then {wait -text 'Register as an' -timeout 5000 -thenclick true}
+		$sleep
+		$sleep
 		if -text 'Phone Number' -timeout 100000 -then {$requestPhone} -else {loopContinue}
 		$sleep
-		if -text 'Phone Number' -timeout 10000 -then {$gen_link_request}
-		if -text 'Phone Number' -timeout 10000 -then {$getPhone}
+		$sleep
+		$gen_link_request
+		$getPhone
+
 		if -getVar "phone" -equal null -then 'sleep -t 15000'
 		if -getVar "phone" -equal null -then {$getPhone}
 		
