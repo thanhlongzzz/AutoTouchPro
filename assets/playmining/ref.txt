@@ -177,6 +177,7 @@ sequence
 		$sleep
 		$sleep
 		sleep -t 5000
+		var -name "link" -value "null"
 		loop -i 7
 			readMail -user "$email" -pass "$emailPass" -contain "Sign up to PlayMining" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "link"
 			if -getVar "link" -equal null -then {$sleep} -else {break}
@@ -330,6 +331,8 @@ sequence
 		$sleep
 		$sleep
 		$sleep
+		var -name "linkwallet" -value "null"
+
 		loop -i 10
 			readMail -user "$email" -pass "$emailPass" -contain "Login to NFT Marketplace by DEP" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linkwallet"
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
