@@ -1,5 +1,9 @@
 adb push privapp-permissions-attp-updater.xml /sdcard/privapp-permissions-attp-updater.xml
 adb push ATTP_updater.apk /sdcard/ATTP_updater.apk
+adb push "gif.exe" "/data/local/tmp/gif.exe"
+adb push "libc++_shared.so" "/data/local/tmp/libc++_shared.so"
+adb push "libopencv_java4.so" "/data/local/tmp/libopencv_java4.so"
+
 adb shell "su -c 'mount -o rw,remount /'"
 adb shell "su -c 'mount -o rw,remount /system'"
 adb shell "su -c 'mount -o rw,remount /etc'"

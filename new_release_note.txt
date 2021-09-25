@@ -1,4 +1,32 @@
 ----
+25/09
+
+Hỗ trợ wait hoặc if bởi ảnh, click, longClick
+
+push các file cần thiết hoặc chạy file command_make_update_app_is_system_app.bat để cài thư viện OpenCV
+
+adb push "gif.exe" "/data/local/tmp/gif.exe"
+adb push "libc++_shared.so" "/data/local/tmp/libc++_shared.so"
+adb push "libopencv_java4.so" "/data/local/tmp/libopencv_java4.so"
+
+script mẫu:
+
+sequence
+	//screenshot -startX 480 -startY 1770 -endX 600 -endY 1900 -to /sdcard/icon.jpg
+	//sleep -t 5000
+
+	wait -template '/sdcard/icon.jpg' -timeout 10000 -thenClick true -then {toast -text 'tim thay'} -else {toast -text 'ko tim thay'}  -varPosX "centerX" -varPosY "centerY"
+	var -name rs -value '[x,y]'
+	replace -text 'getVar -name rs' -replace 'x' -to 'getVar -name centerX' -var 'rs'
+	replace -text 'getVar -name rs' -replace 'y' -to 'getVar -name centerY' -var 'rs'
+	sleep -t 2000
+	toast -text 'getVar -name rs'
+endSequence
+
+
+
+
+----
 05/09
 REST API
 
