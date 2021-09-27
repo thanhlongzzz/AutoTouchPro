@@ -328,7 +328,7 @@ sequence
 		$sleep
 		var -name "linkwallet" -value "null"
 
-		loop -i 10
+		loop -i 13
 			readMail -user "$email" -pass "$emailPass" -contain "Login to NFT Marketplace by DEP" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linkwallet"
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
@@ -369,7 +369,7 @@ sequence
 		
 		wait -text 'Singapore' -exactly true -timeout 20000 -thenClick true
 		loop -i 10
-			wait -text 'Vietnam' -exactly true -timeout 1500 -thenClick true -then {break} -else 'swipe -orient up -time 300'
+			wait -text 'Vietnam' -exactly true -timeout 1500 -thenClick true -then {break} -else 'swipe -orient up -time 250'
 		endLoop
 		
 		wait -text 'Send' -exactly true -timeout 5000 -thenClick true
