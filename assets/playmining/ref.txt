@@ -339,6 +339,7 @@ sequence
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 		endLoop
 		
+		if -getVar "linkwallet" -equal null -then {loopContinue}
 
 		$sleep
 		replace -text 'getVar -name "linkwallet"' -replace '&amp;' -to '&' -var "linkwallet"
