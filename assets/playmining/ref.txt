@@ -320,12 +320,7 @@ sequence
 		$sleep
 		$sleep
 		$sleep
-		$sleep
-		$sleep
-		$sleep
-		$sleep
-		$sleep
-		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true
+		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true -else {toast -text "login" -sound true}
 		
 		sleep -t 10000
 		$sleep
