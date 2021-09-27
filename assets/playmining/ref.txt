@@ -30,7 +30,7 @@ define
 
 	$pk = org.bromite.bromite
 	
-	$sleep = sleep -t "random -from 1000 -to 3500"
+	$sleep = sleep -t "random -from 1000 -to 2500"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	//$refCode = BX5FD0
@@ -411,10 +411,10 @@ sequence
 		
 		wait -text 'Confirm' -exactly true -timeout 10000 -thenClick true
 		
-		wait -text 'CONGRATULATION' -exactly true -timeout 40000 -then {csvDataRow -col "status" -setText "success"}
-		wait -text 'CONGRATULATION' -exactly true -timeout 5000 -then {csvDataRow -col "phone" -setText "getVar -name newPhone"}
-		
 		wait -text 'CONGRATULATION' -exactly true -timeout 40000 -then {toast -text "success" -sound true}
+		
+		wait -text 'CONGRATULATION' -exactly true -timeout 4000 -then {csvDataRow -col "status" -setText "success"}
+		wait -text 'CONGRATULATION' -exactly true -timeout 5000 -then {csvDataRow -col "phone" -setText "getVar -name newPhone"}
 		
 	endLoop
 	
