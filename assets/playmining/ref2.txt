@@ -14,6 +14,10 @@ loop -i 5000
 endLoop
 
 loop -i 5000
+	wait -text 'cancel' -exactly true -timeout 200000 -thenClick true
+endLoop
+
+loop -i 5000
 	wait -edittext 'Please enter your e-mail address' -timeout 500000
 	sleep -t 5000
 	$sleep
@@ -26,13 +30,13 @@ define
 
 	$pk = org.bromite.bromite
 	
-	$sleep = sleep -t "random -from 1000 -to 2500"
+	$sleep = sleep -t "random -from 1000 -to 3500"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	$refCode = BX5FD0
 	//$refCode = FE2CC7
-	//$refCode = RW4WW8
-	//$refCode = VN9YJ1
+	//$refCode = AF6FN9
+
 	///sim
 	//$requestPhone = get -url "http://otpsim.com/api/phones/request?token=270eb8cde9351fc49c47f606dc6ab691&service=63&network=2&exceptPrefix=85" -field "data.session" -var "session"
 	//$gen_link_request = replace -text "http://otpsim.com/api/sessions/_id_?token=270eb8cde9351fc49c47f606dc6ab691" -replace "_id_" -to "getVar -name session" -var "get_link_otp"
@@ -59,7 +63,7 @@ endDefine
 
 sequence
 
-	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/data_device_2.csv" -to "/sdcard/AutoTouchPro/data.csv"}
+	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/playmining/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
 	
 	loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 		
@@ -92,9 +96,9 @@ sequence
 		
 		if -getVar "clear" -equal 1 -then {opennotification}
 		if -getVar "clear" -equal 1 -then {$sleep}
-		if -getVar "clear" -equal 1 -then {wait -text "Airplane mode"  -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {wait -text "Off - Airplane mode"  -timeout 20000 -thenclick true}
 		if -getVar "clear" -equal 1 -then {$sleep}
-		if -getVar "clear" -equal 1 -then {wait -text "Airplane mode" -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 1 -then {wait -text "On - Airplane mode" -timeout 20000 -thenclick true}
 		if -getVar "clear" -equal 1 -then {$sleep}
 		if -getVar "clear" -equal 1 -then {home}
 		if -getVar "clear" -equal 1 -then {$sleep}
@@ -173,6 +177,7 @@ sequence
 		$sleep
 		$sleep
 		sleep -t 5000
+		var -name "link" -value "null"
 		loop -i 7
 			readMail -user "$email" -pass "$emailPass" -contain "Sign up to PlayMining" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "link"
 			if -getVar "link" -equal null -then {$sleep} -else {break}
@@ -250,7 +255,7 @@ sequence
 		
 		wait -text 'My Page' -exactly true -timeout 3000 -then {sleep -t 5000}
 		
-		wait -text 'My Page' -exactly true -timeout 3000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
+		wait -text 'My Page' -exactly true -timeout 3000 -else {click -x 960 -y 300}
 		
 		
 		wait -text 'My Page' -exactly true -timeout 5000 -else {loopContinue}
@@ -264,7 +269,7 @@ sequence
 		
 		wait -text 'Entry' -exactly true -timeout 10000 -else {csvDataRow -col "status" -setText "registerFailedNotFoundEntry"}
 		
-		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'MENU' -exactly true -pos 1 -timeout 3000 -thenClick true}
+		wait -text 'Entry' -exactly true -timeout 5000 -else {click -x 960 -y 300}
 		
 		wait -text 'Entry' -exactly true -timeout 5000 -else {wait -text 'My Page' -pos 0 -exactly true -timeout 3000 -thenClick true}
 		
@@ -310,16 +315,27 @@ sequence
 		$sleep
 		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
-		
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
+		$sleep
 		$sleep
 		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true
 		
-		
 		sleep -t 10000
-		
 		$sleep
+		$sleep
+		$sleep
+		var -name "linkwallet" -value "null"
+
 		loop -i 10
 			readMail -user "$email" -pass "$emailPass" -contain "Login to NFT Marketplace by DEP" -limit 2 -regex {<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1} -regexPos 1 -groupPos 2 -var "linkwallet"
+			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 		endLoop
 		
@@ -338,11 +354,15 @@ sequence
 		//OpenDeepLink -p "$pk" -url {getVar -name "linkwallet"}
 		
 
-		
+		if -text 'Phone Number' -timeout 20000 -then {wait -text 'Register as an' -timeout 5000 -thenclick true}
+		$sleep
+		$sleep
 		if -text 'Phone Number' -timeout 100000 -then {$requestPhone} -else {loopContinue}
 		$sleep
-		if -text 'Phone Number' -timeout 10000 -then {$gen_link_request}
-		if -text 'Phone Number' -timeout 10000 -then {$getPhone}
+		$sleep
+		$gen_link_request
+		$getPhone
+
 		if -getVar "phone" -equal null -then 'sleep -t 15000'
 		if -getVar "phone" -equal null -then {$getPhone}
 		

@@ -33,10 +33,10 @@ define
 	$sleep = sleep -t "random -from 1000 -to 3500"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
-	$refCode = BX5FD0
+	//$refCode = BX5FD0
 	//$refCode = FE2CC7
-	//$refCode = RW4WW8
-	//$refCode = VN9YJ1
+	$refCode = AF6FN9
+
 	///sim
 	//$requestPhone = get -url "http://otpsim.com/api/phones/request?token=270eb8cde9351fc49c47f606dc6ab691&service=63&network=2&exceptPrefix=85" -field "data.session" -var "session"
 	//$gen_link_request = replace -text "http://otpsim.com/api/sessions/_id_?token=270eb8cde9351fc49c47f606dc6ab691" -replace "_id_" -to "getVar -name session" -var "get_link_otp"
