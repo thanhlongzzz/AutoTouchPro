@@ -30,7 +30,7 @@ define
 
 	$pk = org.bromite.bromite
 	
-	$sleep = sleep -t "random -from 1000 -to 2500"
+	$sleep = sleep -t "random -from 1000 -to 2000"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	//$refCode = BX5FD0
@@ -376,7 +376,6 @@ sequence
 			wait -text 'Vietnam' -exactly true -timeout 1500 -thenClick true -then {break} -else 'swipe -orient up -time 250'
 		endLoop
 		
-		$sleep
 		$sleep
 		wait -text 'Phone Number' -exactly true -timeout 10000 -thenClick true
 		$sleep
