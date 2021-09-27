@@ -414,6 +414,10 @@ sequence
 		wait -text 'CONGRATULATION' -exactly true -timeout 40000 -then {csvDataRow -col "status" -setText "success"}
 		wait -text 'CONGRATULATION' -exactly true -timeout 5000 -then {csvDataRow -col "phone" -setText "getVar -name newPhone"}
 		
+		wait -text 'CONGRATULATION' -exactly true -timeout 40000 -then {toast -text "success" -sound true}
+		
 	endLoop
+	
+	toast -text "Ended email. Please add new mail" -sound true
 	
 endSequence
