@@ -334,6 +334,8 @@ sequence
 			if -getVar "linkwallet" -equal null -then {$sleep} -else {break}
 		endLoop
 		
+		if -getVar "linkwallet" -equal null -then {toast -text "not Receive Link Wallet" -sound true}
+		if -getVar "linkwallet" -equal null -then {csvDataRow -col "status" -setText "notReceiveLinkInEmailWallet"}
 		if -getVar "linkwallet" -equal null -then {loopContinue}
 
 		$sleep
