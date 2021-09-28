@@ -136,6 +136,7 @@ sequence
 		
 		
 		replace -text {getVar -name "useragent"} -replace "4472" -to 'random -text "4472,4771,4770,4769,4772"' -var "useragent"
+		replace -text {getVar -name "useragent"} -replace "91" -to 'random -text "91,92,93,94"' -var "useragent"
 		
 		wait -text 'Insert a valid user agent' -exactly true -timeout 10000 -pos 0 -thenInput {getVar -name "useragent"}
 		
