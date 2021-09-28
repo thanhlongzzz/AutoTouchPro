@@ -386,9 +386,9 @@ sequence
 			wait -text 'Vietnam' -exactly true -timeout 1500 -thenClick true -then {break} -else 'swipe -orient up -time 250'
 		endLoop
 		
-		$sleep
+		//$sleep
 		//wait -text 'Phone Number' -exactly true -timeout 10000 -thenClick true
-		$sleep
+		//$sleep
 		//wait -text 'Phone Number' -exactly true -timeout 10000 -then {back}
 		$sleep
 		wait -text 'Send' -exactly true -timeout 5000 -thenClick true
