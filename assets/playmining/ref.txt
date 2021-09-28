@@ -337,6 +337,9 @@ sequence
 		endLoop
 		
 		$sleep
+		if -getVar "linkwallet" -equal null -then {wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenClick true}
+		$sleep
+		if -getVar "linkwallet" -equal null -then {wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -then back}
 		if -getVar "linkwallet" -equal null -then {wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true}
 		
 		loop -i 10
