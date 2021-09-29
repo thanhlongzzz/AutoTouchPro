@@ -311,18 +311,16 @@ sequence
 		wait -text 'Move' -exactly true -timeout 10000 -thenClick true -else {loopContinue}
 		
 		$sleep
-		wait -text 'Please enter your e-mail address.' -exactly true -timeout 20000
-		$sleep
-		$sleep
+		wait -text 'Please enter your e-mail address.' -exactly true -timeout 20000 -then {sleep -t 5000}
 		$sleep
 		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
 		$sleep
 		$sleep
 		$sleep
-		//wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenClick true
-		//$sleep
-		//wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -then {back}
+		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenClick true
+		$sleep
+		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -then {back}
 		$sleep
 		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true -else {toast -text "login" -sound true}
 		
