@@ -317,11 +317,14 @@ sequence
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenInput '$email'
 		$sleep
 		$sleep
+		swipe -startX 500 -startY 1000 -endX 500 -endY 800
 		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -thenClick true
 		$sleep
 		wait -text 'Please enter your e-mail address.' -exactly true -timeout 5000 -then {back}
 		$sleep
+		
+		
 		wait -text 'LOG IN' -exactly true -timeout 10000 -thenClick true -else {toast -text "login" -sound true}
 		
 		sleep -t 10000
