@@ -50,7 +50,7 @@ define
 	
 	//chothuesimcode
 	
-	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=645fff3c&appId=1285&carrier=Mobi" -var "response"
+	$requestPhone = get -url "https://chothuesimcode.com/api?act=number&apik=645fff3c&appId=1285&carrier=Viettel" -var "response"
 	
 	$gen_link_request = replace -text "https://chothuesimcode.com/api?act=code&apik=645fff3c&id=_id_" -replace "_id_" -to 'ReadJson -fromVar "response" -field "Result.Id"' -var "get_link_otp"
 	$getOTP_field = get -url "getVar -name get_link_otp" -field "Result.Code" -var "otp"
