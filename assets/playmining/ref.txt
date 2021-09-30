@@ -91,6 +91,8 @@ sequence
 		//clear data app, yêu cầu root
 		clearData -p "$pk"
 		
+		restoreapp -p "$pk" -from 'AutoTouchPro/backup' -name 'bromite.bak'
+		
 		var -name "clear" -value 'random -text "1"'
 		
 		
