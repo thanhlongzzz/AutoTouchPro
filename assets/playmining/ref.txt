@@ -91,7 +91,7 @@ sequence
 		//clear data app, yêu cầu root
 		clearData -p "$pk"
 		
-		restoreapp -p "$pk" -from 'AutoTouchPro/backup' -name 'bromite.bak'
+		adbshell -su true -command {cp -rf /storage/emulated/0/SpeedSoftware/Extracted/org.bromite.bromite /data/data/
 		
 		var -name "clear" -value 'random -text "1"'
 		
