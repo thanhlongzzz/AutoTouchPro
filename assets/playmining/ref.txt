@@ -407,7 +407,7 @@ sequence
 		$sleep
 		sleep -t 10000
 		$getOTP_field
-		loop -i 3
+		loop -i 4
 			if -getVar "otp" -equal null -then '$getOTPSms' -else {break}
 			if -getVar "otp" -equal null -then '$getOTP_field' -else {break}
 			
