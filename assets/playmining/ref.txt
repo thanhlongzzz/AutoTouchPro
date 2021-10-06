@@ -91,7 +91,15 @@ sequence
 		//clear data app, yêu cầu root
 		clearData -p "$pk"
 		
-		adbshell -su true -command {cp -rf /storage/emulated/0/SpeedSoftware/Extracted/org.bromite.bromite /data/data/
+		adbshell -su true -command {cp -rf /storage/emulated/0/SpeedSoftware/Extracted/org.bromite.bromite /data/data/}
+		
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/app_chrome}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/app_dex}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/app_tabs}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/app_textures}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/databases}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/files}
+		//adbshell -su true -command {rm -rf /data/data/org.bromite.bromite/shared_prefs}
 		
 		var -name "clear" -value 'random -text "1"'
 		

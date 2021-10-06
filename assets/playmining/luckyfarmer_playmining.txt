@@ -1,0 +1,54 @@
+loop -i 100000
+	//click -x 'random -from 270 -to 650' -y 'random -from 1250 -to 1550'
+	sleep -t 1000
+	wait -template '/sdcard/pl_ok.jpg' -timeout 5000 -thenClick true
+	sleep -t 5000
+	wait -template '/sdcard/ok.jpg' -timeout 5000 -thenClick true
+	
+	swipe -startX 330 -endX 1275 -startY 720 -endY 1298
+	sleep -t 1500
+	swipe -startX 491 -endX 1275 -startY 680 -endY 1270
+	sleep -t 1500
+	
+endLoop
+
+loop -i 100000
+	var -name captcha -value null
+	wait -template '/sdcard/1.jpg' -timeout 2000 -thenClick true -then {var -name captcha -value true}
+	if -getVar captcha -equal true -then {sleep -t 200}
+	if -getVar captcha -equal true -then {wait -template '/sdcard/2.jpg' -timeout 3000 -thenClick true}
+	if -getVar captcha -equal true -then {sleep -t 200}
+	if -getVar captcha -equal true -then {wait -template '/sdcard/3.jpg' -timeout 3000 -thenClick true}
+	if -getVar captcha -equal true -then {sleep -t 200}
+	if -getVar captcha -equal true -then {wait -template '/sdcard/4.jpg' -timeout 3000 -thenClick true}
+	if -getVar captcha -equal true -then {sleep -t 200}
+	if -getVar captcha -equal true -then {wait -template '/sdcard/5.jpg' -timeout 3000 -thenClick true}
+	if -getVar captcha -equal true -then {sleep -t 2000}
+	
+	click -x 350 -y 1110
+	sleep -t 150
+	click -x 420 -y 1110
+	sleep -t 150
+	click -x 490 -y 1110
+	sleep -t 150
+	click -x 490 -y 1110
+	sleep -t 150
+	click -x 560 -y 1110
+	sleep -t 150
+	click -x 620 -y 1110
+	sleep -t 150
+	click -x 670 -y 1110
+	sleep -t 150
+endLoop
+
+loop -i 100000
+
+	click -x 700 -y 1210
+	sleep -t 1000
+	click -x 550 -y 1300
+	sleep -t 1000
+	click -x 550 -y 1420
+	sleep -t 1000
+	click -x 540 -y 1219
+	sleep -t 8000
+endLoop
