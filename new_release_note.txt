@@ -6,7 +6,7 @@ Hỗ trợ click trong 1 vùng của màn hình, nếu element nào không nằm
 sequence
 	screenshot -startX 480 -startY 1770 -endX 600 -endY 1900 -to /sdcard/icon.jpg
 	sleep -t 5000
-	//hình chữ nhật (Rect): top,left,right,bottom
+	//hình chữ nhật (Rect): left,top,right,bottom
 	wait -template '/sdcard/icon.jpg' -timeout 10000 -thenClick true -clickRange '0,0,1043,1712'
 
 endSequence
