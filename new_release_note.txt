@@ -7,6 +7,7 @@ sequence
 	screenshot -startX 480 -startY 1770 -endX 600 -endY 1900 -to /sdcard/icon.jpg
 	sleep -t 5000
 	//hình chữ nhật (Rect): left,top,right,bottom
+	//left,top là tọa độ start      right, bottom là tọa độ end      nối start với end thì được đường chéo của hình chữ nhật
 	wait -template '/sdcard/icon.jpg' -timeout 10000 -thenClick true -clickRange '0,0,1043,1712'
 
 endSequence
