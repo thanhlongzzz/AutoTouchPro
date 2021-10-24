@@ -1,7 +1,7 @@
 setlocal ENABLEDELAYEDEXPANSION
 set d=
 FOR /F "tokens=* USEBACKQ" %%F IN (`adb devices`) DO (
-	::lấy danh sách device dạng: "abc  device"
+	::lấy danh sách device dạng: "adb devices"
 	set "d=%%F"
 	::set d=!d!,%%F 
 	:: replace chữ device thành -S để tắt màn hình device
