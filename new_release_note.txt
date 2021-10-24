@@ -1,4 +1,11 @@
----
+
+-----
+24/10
+soạn thảo file script với đuôi atp xong chuột phải openwwith, tìm đến file run_direct_script.bat -> chọn alway , sau chạy script vừa soạn xong chỉ cần click dup vào file atp là sẽ tự động push vào và chạy luôn, dùng để test script cho nhanh
+Hỗ trợ tìm element trong 1 vùng của màn hình, nếu element nào không nằm trong hình chữ nhật findRange thì sẽ không nhảy vào -then, ngược lại nhảy vào -else (khác với clickRange)
+wait -text 'Settings' -timeout 10000 -thenClick true -findRange '125,367,860,1500' -then {toast -text "tim thay"} -else {toast -text "ko tim thay"}
+
+-----
 10/10
 Hỗ trợ click trong 1 vùng của màn hình, nếu element nào không nằm trong hình chữ nhật clickRange thì sẽ không click
 

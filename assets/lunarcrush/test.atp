@@ -1,0 +1,15 @@
+sequence
+
+	var -name "code" -value "null"
+	loop -i 7
+		readMail -user "ashleybr7y0u@hotmail.com" -pass "ulpW7aebu51" -contain "LunarCrush Login Verification" -limit 3 -regex `>\W*(\w{6})\W*<\/span>` -groupPos 1 -var "code"
+		if -getVar "code" -equal null -then {sleep -t 5000} -else {break}
+	endLoop
+	
+	var -name inputCode -value {input text _text}
+	replace -text 'getVar -name inputCode' -replace '_text' -to 'getVar -name code' -var "inputCode"
+	
+	wait -edittext -pos 0 -thenClick true
+	sleep -t 1000
+	adbshell -su true -command {getVar -name inputCode}
+endSequence
