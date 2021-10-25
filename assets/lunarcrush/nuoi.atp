@@ -34,10 +34,7 @@ sequence
 	
 	loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 		home
-		if -getVar "status" -equal "Confirmed" -else {loopContinue}
-		
-		
-				
+		if -getVar "status" -equal "success" -else {loopContinue}
 		
 		replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
 		changeinfo

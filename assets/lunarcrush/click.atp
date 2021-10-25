@@ -8,7 +8,7 @@ define
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
 	$refLink = "https://lnr.app/s/Qm0wJZ"
-
+	//$refLink = "https://lnr.app/s/gR24m2"
 	
 	
 
