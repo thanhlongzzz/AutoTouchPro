@@ -7,7 +7,7 @@ define
 	$sleep = sleep -t "random -from 1000 -to 2000"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
-	$refLink = "https://lnr.app/s/vOG1e9"
+	$refLink = random -text "https://lnr.app/s/vOG1e9,https://lnr.app/s/gR24m2"
 	//$refLink = "https://lnr.app/s/gR24m2"
 	
 	
@@ -37,7 +37,7 @@ endLoop
 sequence
 
 	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/lunarcrush/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
-	loop -i 15
+	loop -i 30
 		loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 			
 			
@@ -94,16 +94,18 @@ sequence
 			$sleep
 			back
 			
-			OpenDeepLink -p "$pk" -url "$refLink"
+			OpenDeepLink -p "$pk" -url {$refLink}
 			$sleep
 			
 			var -name "login" -value null
 			
 			if -text 'Log In / Register' -exactly true -timeout 250000 -thenClick true -then {var -name "login" -value true} -else {toast -text "Cannot see login buton" -sound true}
 			
+			if -getVar "status" -equal null -else {sleep -t 10000}
+			
 			if -getVar "status" -equal null -else {loopContinue}
 			
-			OpenDeepLink -p "$pk" -url "$refLink"
+			OpenDeepLink -p "$pk" -url {$refLink}
 			$sleep
 			$sleep
 			$sleep
