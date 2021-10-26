@@ -7,7 +7,7 @@ define
 	$sleep = sleep -t "random -from 1000 -to 2000"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
-	$refLink = "https://lnr.app/s/Qm0wJZ"
+	$refLink = "https://lnr.app/s/vOG1e9"
 	//$refLink = "https://lnr.app/s/gR24m2"
 	
 	
@@ -38,7 +38,7 @@ sequence
 	loop -i 15
 		loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 			
-			if -getVar "status" -equal null -else {loopContinue}
+			
 			replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
 			changeinfo
 			//clear data app, yêu cầu root
@@ -98,6 +98,8 @@ sequence
 			var -name "login" -value null
 			
 			if -text 'Log In / Register' -exactly true -timeout 250000 -thenClick true -then {var -name "login" -value true} -else {toast -text "Cannot see login buton" -sound true}
+			
+			if -getVar "status" -equal null -else {loopContinue}
 			
 			OpenDeepLink -p "$pk" -url "$refLink"
 			$sleep

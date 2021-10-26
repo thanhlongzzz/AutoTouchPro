@@ -1,4 +1,7 @@
+------
+25/10
 
+Tự động bật tool nếu máy root
 -----
 24/10
 soạn thảo file script với đuôi atp xong chuột phải openwwith, tìm đến file run_direct_script.bat -> chọn alway , sau chạy script vừa soạn xong chỉ cần click dup vào file atp là sẽ tự động push vào và chạy luôn, dùng để test script cho nhanh
