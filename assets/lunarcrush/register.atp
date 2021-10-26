@@ -24,7 +24,7 @@ loop -i 100000000
 	wait -text 'Didn't get a code or code not working?' -timeout 5000 -then {var -name check -value null}
 	if -getVar check -equal true -then {wait -edittext '' -pos 0 -timeout 5000 -thenclick true}
 	if -getVar check -equal true -then {wait -text 'line_1' -thenclick true -timeout 5000}
-	if -getVar check -equal true -then {sleep -t 10000}
+	if -getVar check -equal true -then {sleep -t 6000}
 	
 	if -text 'Log In / Register' -exactly true -timeout 5000 -thenClick true
 	$sleep
