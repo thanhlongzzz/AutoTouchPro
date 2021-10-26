@@ -25,6 +25,8 @@ loop -i 100000000
 	if -getVar check -equal true -then {wait -edittext '' -pos 0 -timeout 5000 -thenclick true}
 	if -getVar check -equal true -then {wait -text 'line_1' -thenclick true -timeout 5000}
 	if -getVar check -equal true -then {sleep -t 10000}
+	
+	if -text 'Log In / Register' -exactly true -timeout 5000 -thenClick true
 	$sleep
 	wait -text 'Enter Email address' -exactly true -timeout 7000 -thenInput '$email'
 	$sleep
