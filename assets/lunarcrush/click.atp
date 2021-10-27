@@ -7,10 +7,11 @@ define
 	$sleep = sleep -t "random -from 1000 -to 2000"
 	$email = getVar -name email
 	$emailPass = getVar -name emailpass
-	$refLink = "https://lnr.app/s/Qm0wJZ"
+	
+	//$refLink = "https://lnr.app/s/Qm0wJZ"
+	
+	$refLink = random -text "https://lnr.app/s/rABLJZ,https://lnr.app/s/gR24m2"
 	//$refLink = "https://lnr.app/s/gR24m2"
-	
-	
 
 endDefine
 
@@ -87,9 +88,9 @@ sequence
 		$sleep
 		back
 		
-		OpenDeepLink -p "$pk" -url "$refLink"
+		OpenDeepLink -p "$pk" -url {$refLink}
 		sleep -t 10000
-		OpenDeepLink -p "$pk" -url "$refLink"
+		OpenDeepLink -p "$pk" -url {$refLink}
 		$sleep
 		loop -i 4
 			if -text 'Log In / Register' -exactly true -timeout 10000 -else {wait -text 'Try again' -timeout 10000 -thenclick true}
