@@ -38,10 +38,10 @@ endLoop
 sequence
 
 	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/lunarcrush/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
-	loop -i 30
+	loop -i 40
 		loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
 			
-			
+			if -getVar "status" -equal null -else {loopContinue}
 			replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
 			changeinfo
 			//clear data app, yêu cầu root
@@ -112,7 +112,7 @@ sequence
 			
 			if -getVar "status" -equal null -else {sleep -t 10000}
 			
-			if -getVar "status" -equal null -else {loopContinue}
+			//if -getVar "status" -equal null -else {loopContinue}
 			
 			
 			
