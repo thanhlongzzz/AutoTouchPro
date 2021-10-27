@@ -123,13 +123,13 @@ sequence
 			//$sleep
 			//wait -text 'line_1' -thenclick true -timeout 5000
 			
-			OpenDeepLink -p "$pk" -url {$refLink}
+			if -getVar "login" -equal null -then `OpenDeepLink -p "$pk" -url {$refLink}`
 			$sleep
 			$sleep
 			$sleep
 			$sleep
 
-			if -text 'Log In / Register' -exactly true -timeout 5000 -thenClick true -then {var -name "login" -value true}
+			if -getVar "login" -equal null -then `if -text 'Log In / Register' -exactly true -timeout 15000 -thenClick true -then {var -name "login" -value true}`
 			if -getVar "login" -equal null -then {loopContinue}
 			
 			$sleep
