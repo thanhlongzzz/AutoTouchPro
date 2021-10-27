@@ -17,6 +17,16 @@ define
 endDefine
 
 
+loop -i 100000000
+	var -name loading -value null
+	wait -text 'Are you a human' -timeout 10000 -then {var -name loading -value true}
+	
+	if -getVar loading -equal true -then {sleep -t 15000}
+	if -getVar loading -equal true -then `wait -text 'Are you a human' -timeout 5000 -then {var -name loading -value true} -else {var -name loading -value null}`
+	if -getVar loading -equal true -then {wait -edittext '' -pos 0 -timeout 5000 -thenclick true}
+	if -getVar loading -equal true -then {wait -text 'line_1' -thenclick true -timeout 5000}
+	if -getVar loading -equal true -then {sleep -t 6000}
+endLoop
 
 
 
