@@ -1,17 +1,18 @@
 home
 
 define
-
-	$pk = org.bromite.bromite
-	$folder = lunarcrush
-	$sleep = sleep -t "random -from 1000 -to 2000"
-	$email = getVar -name email
-	$emailPass = getVar -name emailpass
+	$data = data_device_1.csv
 	$refLink = "https://lnr.app/s/rABLJZ"
 	//$refLink = random -text "https://lnr.app/s/rABLJZ,https://lnr.app/s/gR24m2"
 	//$refLink = "https://lnr.app/s/gR24m2"
 	
 	
+	
+	$pk = org.bromite.bromite
+	$folder = lunarcrush
+	$sleep = sleep -t "random -from 1000 -to 2000"
+	$email = getVar -name email
+	$emailPass = getVar -name emailpass
 
 endDefine
 
@@ -37,9 +38,9 @@ endLoop
 
 sequence
 
-	if -file "/sdcard/AutoTouchPro/data.csv" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/lunarcrush/data_device_1.csv" -to "/sdcard/AutoTouchPro/data.csv"}
+	if -file "/sdcard/AutoTouchPro/$data" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/lunarcrush/$data" -to "/sdcard/AutoTouchPro/$data"}
 	loop -i 40
-		loop -inCsvData "/sdcard/AutoTouchPro/data.csv"
+		loop -inCsvData "/sdcard/AutoTouchPro/$data"
 			
 			if -getVar "status" -equal null -else {loopContinue}
 			replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
