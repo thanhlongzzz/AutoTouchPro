@@ -2,10 +2,16 @@ home
 
 define
 	$data = data_device_1.csv
-	$refLink = "https://lnr.app/s/rABLJZ"
+	
+	$refLink = getVar -name ref_link
 	//$refLink = random -text "https://lnr.app/s/rABLJZ,https://lnr.app/s/gR24m2"
+	
+	
+	//$refLink =  "https://lnr.app/s/rABLJZ"
+
 	//$refLink = "https://lnr.app/s/gR24m2"
 	
+	//$refLink = "https://lnr.app/s/eGApmL"
 	
 	
 	$pk = org.bromite.bromite
@@ -49,6 +55,13 @@ endLoop
 
 sequence
 
+	if -getVar data -equal "data_device_1.csv" -then {var -name ref_link -value "https://lnr.app/s/rABLJZ"}
+	
+	if -getVar data -equal "data_device_2.csv" -then {var -name ref_link -value "https://lnr.app/s/gR24m2"}
+	
+	if -getVar data -equal "data_device_3.csv" -then {var -name ref_link -value "https://lnr.app/s/eGApmL"}
+	
+	
 	if -file "/sdcard/AutoTouchPro/$data" -else {DownloadFile -url "https://github.com/thanhlongzzz/AutoTouchPro/raw/main/assets/lunarcrush/$data" -to "/sdcard/AutoTouchPro/$data"}
 	loop -i 40
 		loop -inCsvData "/sdcard/AutoTouchPro/$data"
@@ -233,7 +246,7 @@ sequence
 			
 			sleep -t 5000
 			
-			if -getVar isLogged -equal true -then {backupapp -p $pk -to $folder -name 'getVar -name namebackup'}
+			//if -getVar isLogged -equal true -then {backupapp -p $pk -to $folder -name 'getVar -name namebackup'}
 			if -getVar isLogged -equal true -then {csvDataRow -col "status" -setText "success"}
 			
 			

@@ -10,8 +10,11 @@ define
 	
 	//$refLink = "https://lnr.app/s/Qm0wJZ"
 	
-	$refLink = random -text "https://lnr.app/s/rABLJZ,https://lnr.app/s/gR24m2"
+	$refLink = random -text "https://lnr.app/s/rABLJZ,https://lnr.app/s/gR24m2,https://lnr.app/s/eGApmL"
+	
 	//$refLink = "https://lnr.app/s/gR24m2"
+	
+	//$refLink = "https://lnr.app/s/eGApmL"
 
 endDefine
 
@@ -96,7 +99,7 @@ sequence
 			if -text 'Log In / Register' -exactly true -timeout 10000 -else {wait -text 'Try again' -timeout 10000 -thenclick true}
 			if -text 'Log In / Register' -exactly true -timeout 3000 -thenClick true -then {break}
 		endLoop
-		sleep -t 15000
+		sleep -t 10000
 	endLoop
 	
 	toast -text "Ended email. Please add new mail" -sound true
