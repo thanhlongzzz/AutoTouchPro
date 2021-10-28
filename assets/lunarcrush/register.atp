@@ -45,7 +45,7 @@ loop -i 100000000
 	//if -getVar check -equal true -then {wait -text 'line_1' -thenclick true -timeout 5000}
 	//if -getVar check -equal true -then {sleep -t 6000}
 	$sleep
-	if -text 'Log In / Register' -exactly true -timeout 5000 -thenClick true
+	if -text 'Log In / Register' -exactly true -timeout 5000 -thenClick true -clickDelay 1000
 	$sleep
 	wait -text 'Enter Email address' -exactly true -timeout 7000 -thenInput '$email'
 	$sleep
@@ -133,7 +133,7 @@ sequence
 			
 			var -name "login" -value null
 			
-			if -text 'Log In / Register' -exactly true -timeout 100000 -thenClick true -then {var -name "login" -value true} -else {toast -text "Cannot see login buton" -sound true}
+			if -text 'Log In / Register' -exactly true -timeout 100000 -thenClick true -clickDelay 1000 -then {var -name "login" -value true} -else {toast -text "Cannot see login buton" -sound true}
 			
 			if -getVar "status" -equal null -else {sleep -t 10000}
 			
@@ -154,7 +154,7 @@ sequence
 			$sleep
 			$sleep
 
-			if -getVar "login" -equal null -then `if -text 'Log In / Register' -exactly true -timeout 15000 -thenClick true -then {var -name "login" -value true}`
+			if -getVar "login" -equal null -then `if -text 'Log In / Register' -exactly true -timeout 15000 -clickDelay 1000 -thenClick true -then {var -name "login" -value true}`
 			if -getVar "login" -equal null -then {loopContinue}
 			
 			$sleep

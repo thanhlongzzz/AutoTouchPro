@@ -34,13 +34,13 @@ endLoop
 
 sequence
 		
-	loop -i 200
+	loop -i 500
 		home
-		replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
-		changeinfo
+		//replace -text 'getVar -name email' -replace '@' -to '_' -var 'namebackup'
+		//changeinfo
 		//clear data app, yêu cầu root
 		clearData -p "$pk"
-		restoreapp -p $pk -from $folder -name 'getVar -name namebackup'
+		//restoreapp -p $pk -from $folder -name 'getVar -name namebackup'
 		
 		
 		var -name "clear" -value 'random -text "1"'
@@ -99,7 +99,7 @@ sequence
 			if -text 'Log In / Register' -exactly true -timeout 10000 -else {wait -text 'Try again' -timeout 10000 -thenclick true}
 			if -text 'Log In / Register' -exactly true -timeout 3000 -thenClick true -then {break}
 		endLoop
-		sleep -t 10000
+		sleep -t 7000
 	endLoop
 	
 	toast -text "Ended email. Please add new mail" -sound true
