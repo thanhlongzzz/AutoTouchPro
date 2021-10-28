@@ -51,6 +51,9 @@ loop -i 100000000
 	$sleep
 	$sleep
 	wait -text 'Next ' -timeout 3000 -thenClick true
+	$sleep
+	wait -template '/sdcard/lunar_box.jpg' -timeout 5000 -thenClick true -clickDelay 1000
+	$sleep
 endLoop
 
 sequence
@@ -169,7 +172,8 @@ sequence
 			$sleep
 			$sleep
 			$sleep
-			
+			wait -template '/sdcard/lunar_box.jpg' -timeout 15000 -thenClick true -clickDelay 1000
+			$sleep
 			
 			
 			
