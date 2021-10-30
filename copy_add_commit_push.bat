@@ -14,6 +14,6 @@ git reset -- assets/*
 git status
 git commit -m "New release"
 git config --global credential.helper store
-git push origin main --force
+git push
 
 pause
