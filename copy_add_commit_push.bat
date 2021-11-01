@@ -10,7 +10,7 @@ xcopy /Q /Y /F "D:\WORK\Android\Project\AutoTouchPro\new_release_note.txt" "D:\W
 xcopy /S /Q /Y /F "D:\WORK\Android\Project\AutoTouchProUpdater\app\release\app-release.apk" "D:\WORK\Android\Project\AutoTouchProUpdateRelease\AutoTouchPro\ATTP_updater.apk*" /i /e
 
 git add -A
-git reset -- assets/*
+::git reset -- assets/*
 git status
 git commit -m "New release"
 git config --global credential.helper store

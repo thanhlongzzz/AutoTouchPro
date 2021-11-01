@@ -1,4 +1,0 @@
-sequence
-	log -text "----------TASK-STOP---------"
-	stopAll
-endSequence

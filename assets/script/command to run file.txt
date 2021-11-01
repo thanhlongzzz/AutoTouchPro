@@ -1,6 +1,0 @@
-cài đặt apk AutotouchPro sau đó mở lên, cấp quyền rồi bật Accessbility lên (chỉ làm 1 lần duy nhất), sau đó chạy lệnh này để run, kết hợp với lệnh push file vào đó trước khi gọi lệnh này
-//cập nhật lệnh run mới
-adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunService --es "file" "amazone_auto.txt"
-
-//test
-adb shell am start-service -n com.tzappstudio.autotouchpro/.services.task.RunService --es "command" "wait -text Videos -exactly true -timeout 10000 -thenScrollTo true"
