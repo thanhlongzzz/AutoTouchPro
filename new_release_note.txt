@@ -11,8 +11,7 @@ sequence
 endSequence
 
 //tạo file sql_get_lastest_sms.txt
-
-adb shell su
+//adb shell su
 sqlite3 /data/data/com.android.messaging/databases/bugle_db
 .once /data/local/tmp/result.txt
 select name,snippet_text from conversations order by sort_timestamp DESC limit 1;
