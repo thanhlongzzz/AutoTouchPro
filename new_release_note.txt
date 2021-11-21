@@ -1,8 +1,25 @@
 
 
+sequence
+	get -localpath "/sdcard/AutoTouchPro/sql_get_lastest_sms.txt" -var "script_adb"
+	adbshell -su true -command 'getVar -name script_adb' -wait false //ko chờ lệnh thực hiện xong vì sqlite3 méo thoát được command nên nó chờ vô hạn ở đây, k biết do lỗi gì, copy lệnh chạy trên cmd cũng vậy
+	sleep -t 500 //vì không chờ lệnh adb nên sleep cho đảm bảo nó thực hiện xong
+	get -localpath "/data/local/tmp/result.txt" -var "rs"
+	toast -text 'getVar -name rs'
+
+	sleep -t 3000
+endSequence
+
+//tạo file sql_get_lastest_sms.txt
+
+adb shell su
+sqlite3 /data/data/com.android.messaging/databases/bugle_db
+.once /data/local/tmp/result.txt
+select name,snippet_text from conversations order by sort_timestamp DESC limit 1;
+.exit
+
 ------
 fix bug
-
 ------
 25/10
 
