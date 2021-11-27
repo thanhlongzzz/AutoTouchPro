@@ -1,4 +1,15 @@
+-----------------
+28/11/2021
+fix bug
 
+thêm một số tùy chọn wait template
+wait -template /sdcard/test.jpg -resizePercent 40 -matchPercent 70 -timeout 15000 -thenClick true
+
+
+tùy chọn backup cả cache
+backupapp -p com.google.chrome -to AutoTouchPro/backup -name testnamme -backupCache true
+
+-----------------
 
 sequence
 	get -localpath "/sdcard/AutoTouchPro/sql_get_lastest_sms.txt" -var "script_adb"
