@@ -1,3 +1,30 @@
+------------------
+thêm option config.json
+
+{
+  "mode": "loadFromUrl",
+  "_comment1": "chọn loadFromUrl hoặc các mode phía dưới",
+
+  "runWhenServiceStart": "true",
+  "runWhenServiceStartDelay": "10000",
+  "_comment2": "bất cứ khi nào service bật lên sẽ auto run theo delay thời gian ms",
+
+  "downloadWhenClickRun": "false",
+  "_comment3": "true thì mỗi khi bấm nút run nó sẽ download script vào filename sau đó chạy script đã download, nếu để false thì nó sẽ chạy script trong filename có sẵn",
+  "loadFromUrl": {
+    "url": "https://raw.githubusercontent.com/thanhlongzzz/AutoTouchPro/main/assets/script_example.txt",
+    "filename": "script_example.txt"
+  },
+  "loadFromOther": {
+    "url": "https://raw.githubusercontent.com/thanhlongzzz/AutoTouchPro/main/assets/script_example_2.txt",
+    "filename": "script_example.txt"
+  },
+  "loadFromFile": {
+    "filename": "script_example.txt"
+  },
+  "deviceName": "DeviceRootedTestName"
+}
+
 -----------------
 28/11/2021
 fix bug
