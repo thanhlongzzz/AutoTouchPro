@@ -1,3 +1,14 @@
+-------------------
+tải lại các file mới nhất, push file gif.exe, lib-c++.so, lib-opencv.so vào /data/local/tmp
+
+//lệnh adb tự chụp ảnh màn hình và tìm tọa độ của icon.jpg
+adb shell CLASSPATH=/data/local/tmp/gif.exe LD_LIBRARY_PATH=/data/local/tmp/ app_process / com.tzappstudio.commandshellserver.ImageMatching "/sdcard/icon.jpg" 80 50
+
+//lệnh chụp ảnh màn hình
+adb shell CLASSPATH=/data/local/tmp/gif.exe LD_LIBRARY_PATH=/data/local/tmp/ app_process / com.tzappstudio.commandshellserver.ScreenshotMaker /sdcard/screenshot.jpg
+adb pull /sdcard/screenshot.jpg
+
+
 ------------------
 thêm option config.json
 
