@@ -1,3 +1,11 @@
+---------------------
+thêm checkNetwork -var status
+trả về mobile,wifi hoặc null
+
+thêm getIPAddress -var ip
+trả về địa chỉ ip của mạng
+
+
 -------------------
 tải lại các file mới nhất, push file gif.exe, lib-c++.so, lib-opencv.so vào /data/local/tmp
 
