@@ -1,3 +1,69 @@
+--------
+15-02-2022
+
+thêm config chạy file script khi startup app (mỗi khi enable accessibility hoặc mỗi khi reboot máy sẽ chạy)
+
+///////////file config
+{
+  "mode": "test",
+  "runWhenServiceStart": "true",
+  "runWhenServiceStartDelay": "5000",
+  "startUpScript": "startup.atp",
+  "downloadWhenClickRun": "false",
+  "test":{
+    "filename":"test.atp"
+   }
+}
+
+////////////file startup.atp
+define
+	$sleep = sleep -t "random -from 500 -to 1500"
+endDefine
+
+sequence
+	toast -text "startup script"
+	var -name "clear" -value '1'
+	//dùng 3g
+	loop -i 4
+		var -name nw -value null
+		if -getVar "clear" -equal 1 -then {checkNetwork -var nw}
+		if -getVar "nw" -equal null -else {break} //nếu có mạng thì break còn null thì chạy tiếp loop
+		if -getVar "clear" -equal 1 -then {sleep -t "5000"}
+	endLoop
+
+	if -getVar "nw" -equal null -then {var -name "clear" -value '2'}
+	//sau 4x5 = 20s mà mạng không lên thì bật tắt máy bay và check mạng có thì break
+	loop -i 5
+		if -getVar "clear" -equal 2 -then {opennotification} -else break
+		if -getVar "clear" -equal 2 -then {$sleep}
+		if -getVar "clear" -equal 2 -then {wait -text "Off - Airplane mode"  -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 2 -then {$sleep}
+		if -getVar "clear" -equal 2 -then {wait -text "On - Airplane mode" -timeout 20000 -thenclick true}
+		if -getVar "clear" -equal 2 -then {$sleep}
+		var -name nw -value null
+		if -getVar "clear" -equal 2 -then {sleep -t "random -from 8000 -to 15000"}
+		if -getVar "clear" -equal 2 -then {checkNetwork -var nw}
+		if -getVar "nw" -equal null -else {break}
+	endLoop
+
+	toast -text "done startup"
+
+endSequence
+
+
+/////////////////////////file test
+define
+	$sleep = sleep -t "random -from 500 -to 800"
+endDefine
+
+loop -i 10
+	$sleep
+	toast -text "getVar -name i"
+	$sleep
+endLoop
+/////////////
+
+
 ---------------------
 thêm checkNetwork -var status
 trả về mobile,wifi hoặc null
