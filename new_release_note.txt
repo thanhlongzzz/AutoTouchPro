@@ -1,9 +1,13 @@
+---------
+21-02-2022
+thêm RandomUserAgent -var useragent
+
 --------
 15-02-2022
 
 thêm config chạy file script khi startup app (mỗi khi enable accessibility hoặc mỗi khi reboot máy sẽ chạy)
 
-///////////file config
+///////////file config.json
 {
   "mode": "test",
   "runWhenServiceStart": "true",
