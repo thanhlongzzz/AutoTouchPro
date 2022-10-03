@@ -1,3 +1,97 @@
+----------
+
+----------
+----------
+----------
+----------
+----------
+//get deviceSerial
+GetDeviceSerial -var serial
+
+----------
+
+//get nhiệt độ CPU
+GetCPUTemperature -var temp
+
+
+___
+//DEMO get nhiệt độ, get danh sách app chạy, nếu nhiệt độ > 1 mức thì kill
+   sequence
+        GetCPUTemperature -var temp
+        toast -text "getVar -name temp"
+        replace -text "temp > 36.5" -replace "temp" -to "getVar -name temp" -var calTemp
+        calc -math "getVar -name calTemp" -var calResult
+        sleep -t 1000
+        toast -text "getVar -name calResult"
+
+        GetRunningApp -var running
+
+        if -getVar "calResult" -equal true -then {StopApp -p "getVar -name running" -skip "com.android.adbkeyboard,org.meowcat.edxposed.manager"} -else {}
+    endSequence
+
+--------
+
+//force stop app, yêu cầu root, có thể truyền vào danh sách lấy được ở GetRunningApp, có tuỳ chọn skip các app không  muốn stop, có tuỳ chọn splitBy
+StopApp -p "com.facebook.katana,us.zoom.videomeetings,com.shopee.vn" -skip "de.clemensbartz.android.launcher,com.android.adbkeyboard,org.meowcat.edxposed.manager"  -splitBy ","
+
+
+----------
+
+//get danh sách package đang chạy,cách nhau bởi dấu phẩy
+GetRunningApp -var running
+
+
+--------
+
+//mục đích: update apk cho app system AutoPhoneUpdater.apk, nó sẽ mở màn hình install apk (như cài apk bằng tay)
+InstallAPKViaIntent -apkPath "/sdcard/AutoPhoneUpdater.apk"
+            
+
+----------
+
+
+//cài apk, yêu cầu máy root và cài app AutoPhoneUpdater là system app
+InstallAPK -p "com.facebook.katana" -v "1.0.23.123" -url "https://file.lalasoft.vn/test.apk"
+           
+_____
+            /*
+            //demo check
+	    
+	    
+            loop -i 1
+                InstallAPK -p "com.tzapp.dialer" -v "5.14.1" -url "http://up.lalasoft.vn/upload/dialer-core-debug.apk"
+                getVersionApp -p "com.tzapp.dialer" -var "v"
+                toast -text 'getVar -name v'
+                sleep -t 5000
+
+                wait -text "Latest" -timeout 10000 -then {toast -text "đã Latest"}
+                wait -text "Latest" -timeout 2000 -then {break}
+
+                wait -text "Installed" -timeout 40000 -then {getVersionApp -p "com.tzapp.dialer" -var "v"} -else {break}
+                toast -text 'getVar -name v'
+            endLoop
+            * */
+
+
+
+
+--------
+//trả về version của app đã cài trên máy theo package
+getVersionApp -p "com.tzapp.dialer" -var "v"
+
+---------
+//chạy 1 file từ 1 file khác, tuỳ chọn chạy rẽ nhánh sang thread khác, nếu không thì nó sẽ đợi chạy xong rồi chạy tiếp, yêu cầu downloaded_file.atp bọc trong thẻ sequence, endSequence thì mới lắng nghe được khi nào chạy xong
+RunFromFile -path "/sdcard/AutoTouchPro/downloaded_file.atp" -onOtherThread true
+
+----------
+
+//get ip của mạng internet
+getIPaddress
+
+
+--------
+//check trạng thái mạng, trả về wifi,mobile,null
+CheckNetwork -var network
 --------
 16-04-2022
 thêm script khi cắm hoặc rút usb
