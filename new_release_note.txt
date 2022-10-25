@@ -1,9 +1,60 @@
 ----------
 
 ----------
+//thêm task check
+sequence
+    CheckUsbDebuggingMode -var status
+
+    //status trả về
+    // "connected": cả developer mode và usb đang enable
+    // "not_connected": chỉ developer mode enabe còn usb thì không
+    // null : cả developer mode và usb đều disable
+
+    toast -text {getVar -name "status"}
+endSequence
 ----------
+thêm task update config file qua script
+sequence
+	UpdateConfigFile -k "temperature" -v "getCPUTemperature"
+    UpdateConfigFile -key "customJson" -value `{"a":"b","arr":[{"obj1":"test obj1"},{"obj2":"test obj2"}]}`
+    UpdateConfigFile -key "customJsonArray" -value `[{"obj3":"test obj3"},{"obj4":"test obj4"}]`
+
+	//toast -text {get -localPath "/AutoTouchPro/config.json" -field "customJson.arr[1].obj2" }
+	toast -text {get -localPath "/AutoTouchPro/config.json" -field "customJsonArray[1].obj4" }
+endSequence
+
 ----------
+Them bat tat den flash
+sequence
+    TurnOnFlash -var rs
+    if -getVar "rs" -equal true -then {toast -text "turn on flash"} -else {toast -text "can not turn on!"}
+    sleep -t 5000
+    TurnOffFlash -var rs
+    if -getVar "rs" -equal true -then {toast -text "turn off flash"} -else {toast -text "can not turn off!"}
+
+endSequence
+
+
 ----------
+//support cronjob check theo phút
+//input time trong ngày và input interval theo phút
+//demo trong file config.json
+"cronjob": [
+        {
+          "time": [
+            "00:01",
+            "03:15",
+            "20:33"
+          ],
+          "run": "check_temperature.atp"
+        },
+        {
+          "interval": "5",
+          "run": "cronjob_task_every_5minute.atp"
+        }
+      ]
+
+
 ----------
 //get deviceSerial
 GetDeviceSerial -var serial
@@ -45,19 +96,19 @@ GetRunningApp -var running
 
 //mục đích: update apk cho app system AutoPhoneUpdater.apk, nó sẽ mở màn hình install apk (như cài apk bằng tay)
 InstallAPKViaIntent -apkPath "/sdcard/AutoPhoneUpdater.apk"
-            
+
 
 ----------
 
 
 //cài apk, yêu cầu máy root và cài app AutoPhoneUpdater là system app
 InstallAPK -p "com.facebook.katana" -v "1.0.23.123" -url "https://file.lalasoft.vn/test.apk"
-           
+
 _____
             /*
             //demo check
-	    
-	    
+
+
             loop -i 1
                 InstallAPK -p "com.tzapp.dialer" -v "5.14.1" -url "http://up.lalasoft.vn/upload/dialer-core-debug.apk"
                 getVersionApp -p "com.tzapp.dialer" -var "v"
