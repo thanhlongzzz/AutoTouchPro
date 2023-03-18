@@ -1,4 +1,32 @@
+------
+18/03/2023
+custom open Free browser
+
+sequence
+	stopApp -p "com.browser.free"
+	sleep -t 300
+	OpenFreeBrowser -deviceCode "001" -trackerId "6415491f475ec30ce4c0f105"
+endSequence
+
+--------
+Hỗ trợ fake IP bằng SOCK5 VPN
+
+sequence
+	SockVPN -stop true
+	sleep -t 3000
+	SockVPN -input "129.159.139.27:45001:GRMQdIe4NwuSW1ix:JY7z5e3TLcutGahEXH"
+	//SockVPN -input "129.159.131.9:45002:uiYCqwK63xrl1o87:DY79gLxX5esKdCbftU"
+endSequence
+
+
 ----------
+thêm 3 lệnh
+
+sequence
+	//stop_button
+	//run_button
+	//force_stop_and_run_button
+endSequence
 
 ----------
 //thêm task check
