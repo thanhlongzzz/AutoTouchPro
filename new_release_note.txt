@@ -1,3 +1,49 @@
+
+-------02/04/2023
+
+sequence
+    //get loại mạng sim đang dùng (2G,3G,LTE,Unknown)
+	GetStatusDataConnection -var type
+	toast -text 'getVar -name type'
+	sleep -t 2000
+
+	//nếu đang có mạng thì get ra độ mạnh của sóng (-95dBm)
+	GetSignalStrengthDataNetwork -var strength
+	toast -text 'getVar -name strength'
+	sleep -t 2000
+
+	//get IP internet
+	GetIPPublic -var ippublic
+	toast -text 'getVar -name ippublic'
+	sleep -t 2000
+
+	//get local IP khi kết nối qua wifi router
+	GetLocalIPWifi -var ipwifi
+	toast -text 'getVar -name ipwifi'
+	sleep -t 2000
+
+	//chụp ảnh màn hình non root (delay khoảng 1s mới chụp đc, lần đầu chụp sẽ phải chấp nhận quyền Quay màn hình, tích vào luôn luôn rồi bị trắng màn hình 0,5s do phải bật trình ghi màn hình,các lần sau sẽ hết)
+	ScreenshotNonRoot -to "/sdcard/test_non_root.jpg" -var isCaptureSuccess
+	toast -text 'getVar -name isCaptureSuccess'
+
+endSequence
+
+--------22/03/2023---
+save text, description, hint of element to variable
+
+sequence
+
+	wait -text 'Log in' -exactly -true -timeout 10000 -pos 0 -varText 'textTest' -varDescription 'desTest' -varHint 'hintTest'
+	toast -text 'getVar -name textTest'
+	sleep -t 3000
+	toast -text 'getVar -name desTest'
+	sleep -t 3000
+	toast -text 'getVar -name hintTest'
+endSequence
+
+
+
+
 ------
 18/03/2023
 custom open Free browser
