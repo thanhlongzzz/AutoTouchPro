@@ -1,3 +1,12 @@
+---07/04-2023
+//thêm check trạng thái root, trạng thái xposed
+sequence
+	GetXposedStatus -var rs
+	toast -text 'getVar -name rs'
+	sleep -t 3000
+	GetRootStatus -var rs
+	toast -text 'getVar -name rs'
+endSequence
 
 -------02/04/2023
 
