@@ -1,3 +1,72 @@
+---------16/04/2023
+
+//db task
+sequence
+
+	sleep -t 1000
+
+
+	//--xoá sạch DB config json ,sử dụng khi nhiều dữ liệu quá rác, muốn xoá sạch
+    DeleteDBConfig
+
+    //--lấy full string json trong DB, sử dụng để check
+    GetDBConfigJson -var json
+    log -text 'getVar -name json' -file "/sdcard/test.log"
+
+
+
+
+    //--lấy trường deviceID trong DB json, vì xoá ở trên nên sẽ null
+    GetDBConfig -key "deviceID" -var dvid
+    toast -text 'getVar -name dvid'
+	sleep -t 1000
+
+    //--ghi đè full json vào DB, các trường khác sẽ mất, cần đúng cú pháp json thì mới ghi được, kết quả lệnh này trả về true nếu ghi thành công, fasle ngược lại
+    UpdateDBConfigJson -json `{"testKey":"testValue"}` -var result
+
+	//có thể get json từ local path hoặc từ internet rồi ghi vào
+	//get -localPath '/sdcard/AutoTouchPro/config.json' -var config
+	//UpdateDBConfigJson -json 'getVar -name config' -var result
+
+
+	//--lấy full string json trong DB, sử dụng để check
+	GetDBConfigJson -var json
+    log -text 'getVar -name json' -file "/sdcard/test.log"
+
+	//Update các key
+	UpdateDBConfig -key "currentTime" -value "GetCurrentTime"
+    UpdateDBConfig -key "deviceID" -value "GetDeviceSerial"
+
+	//có thể để các value là json, dùng cho update trường cronjob
+	UpdateDBConfig -key "customJson" -value `{"a":"b","arr":[{"obj1":"test obj1"},{"obj2":"test obj2"}]}`
+    UpdateDBConfig -key "cronjob" -value `[{"time":["00:01","03:15","20:33"],"run":"check_temperature.atp"},{"interval":"5","run":"cronjob_task_every_5minute.atp"},{"interval":"1s","run":"cronjob_task_every_1_second.atp"}]`
+
+	//--lấy trường deviceID trong DB json ghi phía trên
+    GetDBConfig -key "deviceID" -var dvid
+    toast -text 'getVar -name dvid'
+	sleep -t 1000
+
+	//--lấy full string json trong DB, sử dụng để check
+	GetDBConfigJson -var json
+    log -text 'getVar -name json' -file "/sdcard/test.log"
+	//ghi đè nội dung json ra file
+	log -text 'getVar -name json' -file "/sdcard/test.json" -overWrite true
+
+
+endSequence
+
+
+
+--------08/04/2023
+
+sequence
+	//update key test on custom file json
+	UpdateConfigFile -key "test" -value "getCPUTemperature" -file "/sdcard/test.json"
+	//delete key test on custom file json
+	UpdateConfigFile -key "test" -delete true -file "/sdcard/test.json"
+endSequence
+
+
 ---07/04-2023
 //thêm check trạng thái root, trạng thái xposed
 sequence
