@@ -1,6 +1,9 @@
 ---------16/04/2023
 
 //db task
+//logic giờ sẽ là get từ config ở DB trước => rồi mới get config.json. rồi mới tới static.json
+// - các file config,static a hạn chế ghi (1 ngày ghi 1 lần hoặc có update gì mới ghi), chỉ cho đọc thôi
+// - còn muốn ghi biến gì thay đổi nhiều, config gì thay đổi em sẽ cho ghi vào database, đọc những biến hay thay đổi này từ database
 sequence
 
 	sleep -t 1000
