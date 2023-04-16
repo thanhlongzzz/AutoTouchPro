@@ -37,9 +37,14 @@ sequence
 	UpdateDBConfig -key "currentTime" -value "GetCurrentTime"
     UpdateDBConfig -key "deviceID" -value "GetDeviceSerial"
 
+
+
 	//có thể để các value là json, dùng cho update trường cronjob
 	UpdateDBConfig -key "customJson" -value `{"a":"b","arr":[{"obj1":"test obj1"},{"obj2":"test obj2"}]}`
     UpdateDBConfig -key "cronjob" -value `[{"time":["00:01","03:15","20:33"],"run":"check_temperature.atp"},{"interval":"5","run":"cronjob_task_every_5minute.atp"},{"interval":"1s","run":"cronjob_task_every_1_second.atp"}]`
+
+    //Xoá key
+    UpdateDBConfig -key "customJson" -delete true
 
 	//--lấy trường deviceID trong DB json ghi phía trên
     GetDBConfig -key "deviceID" -var dvid
