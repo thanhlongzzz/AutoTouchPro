@@ -1,3 +1,22 @@
+-----16-05-2023
+
+thêm open intent activity settings
+
+    OpenIntentSettings -name 'android.settings.AIRPLANE_MODE_SETTINGS'
+    OpenIntentSettings -name 'android.settings.BLUETOOTH_SETTINGS'
+
+    //see https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/provider/Settings.java
+    //with ACTIVITY_INTENT_ACTION annotations only
+
+--------18/04/2023
+//thêm config các accessibility service auto enable khi mở app (trên máy root nếu không thêm thì các accessibilty service khác sẽ bị đóng khi enable auto phone)
+//bằng lệnh: adb shell settings put secure enabled_accessibility_services com.tzappstudio.autotouchpro/com.tzappstudio.autotouchpro.services.AccessibilityServices:com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService
+//config.json
+"service_enable":
+		[
+			"com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService",
+			"nu.nav.bar/nu.nav.bar.service.NavigationBarService"
+		]
 ---------16/04/2023
 
 //db task
