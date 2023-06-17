@@ -1,3 +1,19 @@
+----17-06-2023
+
+//hỗ trợ remote adb shell
+sequence
+
+    RemoteADBShell -command "uiautomator dump" -var test
+
+	//  mặc định sẽ đợi 0.5s để lấy kết quả và port = 5555, trong trường hợp lệnh thực thi lâu hoặc port khác thì thêm trường:
+	//	RemoteADBShell -port 5555 -command "ls -l" -var test -delay 1000
+
+	toast -text 'getVar -name test'
+
+endsequence
+
+
+
 -----16-05-2023
 
 thêm open intent activity settings
