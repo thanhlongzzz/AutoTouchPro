@@ -1,6 +1,38 @@
+----21-06-2023
+
+//fix lỗi get biến i trong loop chạy đa luồng, loop trồng loop
+
+//hỗ trợ get biến bằng cú pháp ${ten_viet_lien}
+//	toast -text "${test}"
+//		tương đương
+//	toast -text "getVar -name test"
+sequence
+
+    loop -i 3
+		replace -text "loop1 i" -replace 'i' -to 'getVar -name i' -var test1
+
+		loop -i 3
+			replace -text "loop2 i" -replace 'i' -to '${i}' -var test2
+			toast -text "${test2}"
+			sleep -t 1000
+			loop -i 4
+				replace -text "loop3 i" -replace 'i' -to 'getVar -name i' -var test3
+				toast -text 'getVar -name test3'
+				sleep -t 1000
+			endLoop
+		endLoop
+
+		toast -text 'getVar -name test1'
+		sleep -t 1000
+		toast -text '${i}'
+		sleep -t 1000
+	endLoop
+
+endsequence
+
 ----17-06-2023
 
-//hỗ trợ remote adb shell
+//hỗ trợ remote adb shell trên máy không root
 sequence
 
     RemoteADBShell -command "uiautomator dump" -var test
