@@ -1,3 +1,33 @@
+----01-07-2023
+
+//fix lỗi RemoteADBShell. giờ chỉ nhả ra kq
+//thêm lệnh update app thông qua RemoteADBShell
+//
+
+sequence
+
+    //nhận diện ảnh -> nhả ra tọa độ hình chữ nhật (rect) trên màn hình
+	RemoteADBShell -command `CLASSPATH=/data/local/tmp/gif.exe LD_LIBRARY_PATH=/data/local/tmp/ app_process / com.tzappstudio.commandshellserver.ImageMatching /sdcard/screen.png /sdcard/template_to_find.png 60 50` -delay 2000 -var pos
+	toast -text '${pos}'
+
+	//Update app trên máy non-root
+	DownloadFile -url 'https://up.lalasoft.vn/upload/autophone-release.apk' -to '/sdcard/autophone-release.apk'
+	RemoteADBShell -command `mv -f /storage/emulated/0/autophone-release.apk /data/local/tmp/autophone-release.apk` -delay 4000
+	RemoteADBShell -command `pm install -t -d -r "/data/local/tmp/autophone-release.apk"`
+
+endSequence
+
+
+
+---28-06-2023
+
+fix proxy
+fix lỗi treo máy lâu bị chậm/đơ app (memory leak)
+
+
+//sử dụng lệnh StopProxy để stop all proxy, bao gồm Sock5, proxy auth,...
+
+
 ----21-06-2023
 
 //fix lỗi get biến i trong loop chạy đa luồng, loop trồng loop
