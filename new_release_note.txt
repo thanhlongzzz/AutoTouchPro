@@ -1,3 +1,14 @@
+----17-07-2023
+
+sequence
+	//chạy file thư viện
+	RunDLL -path "/sdcard/AutoTouchPro/test.dll"
+	sleep -t 3000
+	//chạy file thư viện trong luồng khác
+	RunDLL -path "/sdcard/AutoTouchPro/test_output.dll" -onOtherThread true
+	toast -text "done"
+endsequence
+
 ----01-07-2023
 
 //fix lỗi RemoteADBShell. giờ chỉ nhả ra kq
