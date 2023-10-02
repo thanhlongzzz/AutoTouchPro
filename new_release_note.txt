@@ -1,4 +1,47 @@
-----17-07-2023
+
+-------02/10/2023
+//Tạo string nhiều dòng (multipleLineVar) lưu vào biến myString
+// -trim true: không nhận các dấu khoảng trống, dấu tab ở đầu và cuối dòng, nếu false thì nhận raw string
+// -inlineVar true : sẽ thay các cú pháp ${myVar} thành giá trị biến myVar trong RAM, nếu không sẽ nhận raw string là ${myVar}
+
+sequence
+
+	var -name count -value 1000
+
+	MVar -name myString -trim true -inlineVar true
+		//Tạo string nhiều dòng (multipleLineVar) lưu vào biến myString
+		//trim là trim từng dòng, không chứa dấu tab đầu dòng. nếu để mặc định hoặc trim là false thì nội dung string sẽ là string raw
+
+		"mv -rp "/sdcard/1.jpg"  "/data/local/tmp/screne.jpg"
+			rm -rf /data/*
+		restorecon "/data/system"
+test line non tab char
+
+		test replace inline variable: ${count}
+
+		//dùng inline variable trong trường hơp cần thay biến vào như sau:
+		rm -rf "/sdcard/${count}.jpg"
+
+		test replace inline variable null: ${myNullVar}
+	endMVar
+
+	toast -text ${myString}
+endSequence
+
+
+-------11/09/2023-----------
+
+//Hỗ trợ inline variable
+sequence
+    var -name myVar -value "1000"
+    var -name myFile -value "/sdcard/${myVar}.jpg"
+    toast -text ${myFile}
+    sleep -t 3000
+    toast -text "${myVar} _:_ ${myFile}" -time 5000
+
+endSequence
+
+----17-07-2023--------------
 
 sequence
 	//chạy file thư viện
