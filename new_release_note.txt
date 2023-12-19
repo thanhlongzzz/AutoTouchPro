@@ -1,3 +1,11 @@
+-------19-12-2023
+//lệnh import danh sách danh bạ
+ImportContact -file "/sdcard/list.csv" //file gồm 2 cột, cột đầu là tên, cột thứ 2 là number
+
+//lệnh thêm 1 danh bạ
+AddContact -name "test name" -number "012345"
+
+
 
 -------02/10/2023
 //Tạo string nhiều dòng (multipleLineVar) lưu vào biến myString
