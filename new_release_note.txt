@@ -1,3 +1,36 @@
+--------28-12-2023
+//fix get biến i
+//thêm break ở lệnh sequence
+
+
+sequence
+    loop -i 5
+        sleep -t 2000
+        toast -text ${i}
+        if -getVar i -equal 3 -then {break}
+    endLoop
+
+    loop -i 5
+            sleep -t 2000
+            toast -text '${i} test loop 2'
+            if -getVar i -equal 4 -then {break}
+    endLoop
+
+
+    sleep -t 2000
+    toast -text "test main 1"
+    break
+    sleep -t 2000
+    toast -text "test main 2"
+    sleep -t 2000
+    toast -text "test main 3"
+
+endSequence
+
+
+
+
+
 -------19-12-2023
 //lệnh import danh sách danh bạ
 ImportContact -file "/sdcard/list.csv" //file gồm 2 cột, cột đầu là tên, cột thứ 2 là number
