@@ -1,3 +1,37 @@
+---------------------29-01-2024----------
+//thêm hàm copy vào clipboard
+//sử dụng trong trường hợp không wait được edittext để điền các truờng
+//giải pháp là: tìm view của field đó -> click vào để hiện con trỏ -> copy text tiếng việt vào clipboard rồi gọi action paste bằng adb
+
+define
+	$sleep = sleep -t  'random -from 1000 -to 1500'
+endDefine
+
+sequence
+	wait -view 'MultiAutoCompleteTextView' -pos 0 -timeout 5000 -thenclick true -varPosX x -varPosY y
+	//click -x 'getVar -name x' -y 'getVar -name y'
+	$sleep
+	var -name email -value 'test@gmail.com tiếng việt'
+    CopyToClipboard -text "${email}"
+
+	RemoteADBShell -command 'input keyevent 279'
+
+	$sleep
+
+	wait -view 'MultiAutoCompleteTextView' -pos 1 -timeout 5000 -thenclick true -varPosX x -varPosY y
+	//click -x 'getVar -name x' -y 'getVar -name y'
+
+	$sleep
+
+	var -name pass -value '123456'
+	CopyToClipboard -text "${pass}"
+	RemoteADBShell -command 'input keyevent 279'
+endsequence
+
+
+
+
+
 --------28-12-2023
 //fix get biến i
 //thêm break ở lệnh sequence
@@ -19,7 +53,12 @@ sequence
 
     sleep -t 2000
     toast -text "test main 1"
-    break
+
+    var -name test -value 'hi'
+
+    if -getVar test -equal 'hi' -then {break}
+
+    //break
     sleep -t 2000
     toast -text "test main 2"
     sleep -t 2000
