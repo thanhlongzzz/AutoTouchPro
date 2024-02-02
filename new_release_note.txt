@@ -1,8 +1,9 @@
 -------30-01-2024
 
-//sửa lệnh replace với tham số -useRegex true để replace regex, mặc định sẽ không dùng regex
+//thêm option lệnh replace với tham số -useRegex false để replace không dùng regex, mặc định sẽ dùng regex
 
-replace -text "t 123 est" -replace '^t d[3]' -useRegex true -to 'abc' -var rs
+replace -text "t 123 est" -replace '^t d[3]' -to 'abc' -var rs
+replace -text "t 123 est" -replace '^t d[3]' -useRegex false -to 'abc' -var rs
 
 ---------------------29-01-2024----------
 //thêm hàm copy vào clipboard
