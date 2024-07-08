@@ -1,3 +1,49 @@
+---------08-07-2024
+sequence
+    URLEncoder -data 'test encode data ><=%@;' -var encoded
+    toast -text ${encoded}
+    sleep -t 2000
+    URLDecoder -data '${encoded}' -var decoded
+    toast -text ${decoded}
+    sleep -t 2000
+
+
+    var -name raw -value '____raw value__'
+    var -name test -value 'test raw value ${raw}'
+    toast -text ${raw}
+endSequence
+
+------07-07-2024
+
+fix lỗi lưu biến dài (vì phải parse task => đơ app)
+chỉ cần đặt tên biến là 'raw' hoặc 'base64' hoặc 'longText' thì lệnh sẽ không parse task nữa
+
+sequence
+    get -localpath '/sdcard/111.json' -field 'ret' -var raw
+    log -text '${raw}' -file '/sdcard/AutoTouchPro/test_rs.txt' -overWrite true
+    toast -text 'done'
+endSequence
+
+-----02/05/2024
+
+loop -i 1
+    //check network dùng ping thay vì request
+    checkNetwork -var rs
+    toast -text ${rs}
+    sleep -t 2000
+
+    //tính md5 của 1 file
+    GetMD5 -file "/sdcard/screen.png" -var md5
+    toast -text ${md5}
+    sleep -t 2000
+
+    //chuyển 1 file thành base64, tránh dùng với file nặng quá 5MB
+    GetBase64 -file "/sdcard/screen.png" -var base64
+    sleep -t 2000
+    toast -text ${base64}
+endloop
+
+
 -------30-01-2024
 
 //thêm option lệnh replace với tham số -useRegex false để replace không dùng regex, mặc định sẽ dùng regex
